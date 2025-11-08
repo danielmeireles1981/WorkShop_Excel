@@ -1,20 +1,164 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>🏰 Etapa 4 — Castelo do PROCV()</h2>
-<p>No Castelo do PROCV, você aprenderá a buscar informações escondidas em tabelas mágicas.</p>
+<h2>🏰 Etapa 4 — Castelo das Buscas (PROCV, PROCH, CORRESP + ÍNDICE)</h2>
 
-<div class="desafio">
-  <p><strong>Desafio:</strong> Encontre o preço de um produto usando o código.</p>
+<!-- ✨ Abertura motivacional -->
+<section class="bloco teoria destaque">
+  <h3>✨ Encontrar respostas como quem tem um “oráculo”</h3>
+  <p>Chegou a hora de conectar ilhas de dados. Com as funções de <strong>busca</strong>, sua planilha
+     encontra informações automaticamente e transforma tabelas em <em>sistemas</em> — catálogos, listas de preços,
+     dicionários de categorias, metas por grupo… tudo interligado.</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>🎯 Objetivos da etapa</h4>
+      <ul class="check">
+        <li>Buscar dados com <strong>PROCV</strong> (vertical) e <strong>PROCH</strong> (horizontal).</li>
+        <li>Entender <strong>CORRESP</strong> (posição) e <strong>ÍNDICE</strong> (valor pela posição).</li>
+        <li>Montar um mini-sistema de consulta (código → nome, preço, categoria).</li>
+      </ul>
+    </div>
+    <div>
+      <h4>💡 Quando usar qual?</h4>
+      <ul class="tips">
+        <li><strong>PROCV</strong>: chave na 1ª coluna, retorna de outra coluna.</li>
+        <li><strong>PROCH</strong>: chave na 1ª linha, retorna de outra linha.</li>
+        <li><strong>CORRESP+ÍNDICE</strong>: busca <em>flexível</em> (chave em qualquer coluna/linha).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 📘 Teoria express -->
+<section class="bloco teoria">
+  <h3>📘 Teoria em 90 segundos</h3>
+  <div class="grid-2">
+    <div>
+      <ul class="code-bullets">
+        <li>🔎 PROCV: <code>=PROCV(valor; tabela; num_coluna; FALSO)</code></li>
+        <li>🧭 PROCH: <code>=PROCH(valor; tabela; num_linha; FALSO)</code></li>
+        <li>📍 CORRESP: <code>=CORRESP(valor; intervalo; 0)</code> → retorna a <em>posição</em></li>
+        <li>📦 ÍNDICE: <code>=ÍNDICE(intervalo; linha; [coluna])</code> → retorna o <em>valor</em></li>
+      </ul>
+      <p class="hint">“Exato” = usar <code>FALSO</code> (não aproximado). Em <code>CORRESP</code>, use <code>0</code> para correspondência exata.</p>
+    </div>
+    <div class="callout info">
+      <strong>Erros comuns</strong>
+      <ul>
+        <li>Chave de busca <em>não</em> estar na primeira coluna (PROCV) / primeira linha (PROCH).</li>
+        <li>Usar <code>VERDADEIRO</code> (aproximado) sem a tabela estar ordenada.</li>
+        <li>Mesclar células na base (evite — quebre mesclas em bases de dados).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 🧠 Exemplo guiado -->
+<section class="bloco exemplo">
+  <h3>🧠 Exemplo guiado: “Catálogo de Produtos”</h3>
+  <p>Monte a base (ou use algo similar):</p>
 
   <table>
-    <tr><th>Código</th><th>Produto</th><th>Preço</th></tr>
-    <tr><td>101</td><td>Mouse</td><td>R$ 60</td></tr>
-    <tr><td>102</td><td>Teclado</td><td>R$ 120</td></tr>
-    <tr><td>103</td><td>Monitor</td><td>R$ 800</td></tr>
+    <tr><th>Código</th><th>Produto</th><th>Categoria</th><th>Preço</th></tr>
+    <tr><td>101</td><td>Mouse</td><td>Periféricos</td><td>60</td></tr>
+    <tr><td>102</td><td>Teclado</td><td>Periféricos</td><td>120</td></tr>
+    <tr><td>103</td><td>Monitor</td><td>Displays</td><td>800</td></tr>
   </table>
 
-  <p>➡️ Fórmula: <code>=PROCV(102;A2:C4;3;FALSO)</code></p>
-</div>
+  <div class="grid-2">
+    <div>
+      <h4>🔢 PROCV clássico</h4>
+      <pre><code>
+# Buscar nome pelo código (ex.: código em G2)
+=PROCV(G2; A2:D4; 2; FALSO)   # Produto
+=PROCV(G2; A2:D4; 3; FALSO)   # Categoria
+=PROCV(G2; A2:D4; 4; FALSO)   # Preço
+      </code></pre>
+      <p class="hint">A chave (código) está na primeira coluna (A). Por isso o PROCV funciona.</p>
+    </div>
+    <div class="callout success">
+      <h4>🔁 CORRESP + ÍNDICE (flexível)</h4>
+      <pre><code>
+# Coluna do "Preço" (dinâmica, se o cabeçalho mudar de lugar)
+=CORRESP("Preço"; A1:D1; 0)          → retorna, por ex., 4
 
-<a href="/game/" class="btn-next">🏁 Voltar ao Mapa do Jogo</a>
+# Valor do preço do produto com código em G2
+=ÍNDICE(A2:D4; CORRESP(G2; A2:A4; 0); CORRESP("Preço"; A1:D1; 0))
+      </code></pre>
+      <p class="hint">Essa dupla funciona mesmo se as colunas mudarem de ordem. Mais robusto para “sistemas”.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 💪 Desafio gamificado -->
+<section class="bloco desafio">
+  <h3>💪 Mão na massa: “Sistema de Consulta Rápida”</h3>
+  <p>Crie uma área de consulta onde o usuário digita um <strong>código</strong> e recebe automaticamente:</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>📌 Saídas obrigatórias</h4>
+      <ul class="plain">
+        <li>Produto (nome)</li>
+        <li>Categoria</li>
+        <li>Preço</li>
+      </ul>
+      <p>Implemente com <strong>PROCV</strong> e depois refaça com <strong>CORRESP+ÍNDICE</strong>.</p>
+    </div>
+    <div>
+      <h4>🚦 Validações e feedback</h4>
+      <ul class="plain">
+        <li>Se o código não existir → exiba “<em>Não encontrado</em>”.</li>
+        <li>Se o preço &gt;= 500 → destaque em laranja (“alto valor”).</li>
+      </ul>
+      <pre><code>
+# Exibir "Não encontrado" quando der erro
+=SE(ÉERROS(PROCV(G2;A2:D4;2;FALSO));"Não encontrado";
+   PROCV(G2;A2:D4;2;FALSO))
+      </code></pre>
+    </div>
+  </div>
+
+  <div class="badges">
+    <span class="badge">🏅 Mestre do PROCV</span>
+    <span class="badge">🧩 CORRESP + ÍNDICE</span>
+    <span class="badge">🛡️ Base Robusta</span>
+  </div>
+</section>
+
+<!-- 🏎️ Modo Turbo -->
+<section class="bloco extra">
+  <h3>🏎️ Modo Turbo (opcional)</h3>
+  <div class="grid-2">
+    <div class="callout info">
+      <strong>PROCH em matriz horizontal</strong><br>
+      Se a base vier “deitada” (títulos na coluna A e valores em linha), use:<br>
+      <code>=PROCH(chave; matriz; num_linha; FALSO)</code><br>
+      *Dica:* Avalie se faz sentido transpor a base para o formato “colunar” (mais comum).
+    </div>
+    <div class="callout info">
+      <strong>Metas por categoria (spoiler de dashboards)</strong><br>
+      Crie uma tabela de metas (Categoria, Meta_R$) e busque a meta da categoria:<br>
+      <code>=ÍNDICE(Metas!B:B; CORRESP(Categoria; Metas!A:A; 0))</code><br>
+      Compare Real x Meta com <code>SE()</code> e semáforos.
+    </div>
+  </div>
+</section>
+
+<!-- ✅ Checklist -->
+<section class="bloco teoria">
+  <h3>✅ Checklist — concluiu a Fase 1?</h3>
+  <ul class="check">
+    <li>Busquei dados com <strong>PROCV</strong> (exato) e/ou <strong>PROCH</strong>.</li>
+    <li>Implementei a versão <strong>CORRESP+ÍNDICE</strong> (mais flexível).</li>
+    <li>Montei um <strong>Sistema de Consulta</strong> com feedback para erro.</li>
+    <li>Dei um toque visual (formatação condicional). </li>
+  </ul>
+  <p class="hint">Se tudo ok, você fechou a <strong>Fase 1</strong>. Bora desbloquear a <strong>Fase 2 — Finanças Pessoais</strong>! 💰</p>
+</section>
+
+<div style="display:flex; gap:10px; flex-wrap:wrap;">
+  <a href="/game/" class="btn-next">🏁 Voltar ao Mapa do Jogo</a>
+  <a href="{% url 'fase2_etapa1' %}" class="btn-next">▶️ Iniciar Fase 2</a>
+</div>
 {% endblock %}

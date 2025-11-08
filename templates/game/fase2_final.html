@@ -1,18 +1,106 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<h2>🏁 Etapa Final — Missão “Equilíbrio Financeiro”</h2>
+<h2>🏁 Fase 2 — Etapa Final: Entrega, Rubrica & Conclusão</h2>
 
-<p>Você chegou ao fim da Fase 2!</p>
+<!-- ✨ Encerramento com missão -->
+<section class="bloco teoria destaque">
+  <h3>✨ Missão de fechamento</h3>
+  <p>Hora de consolidar tudo que você construiu nesta fase: <strong>base de lançamentos</strong> (Etapa 1),
+     <strong>resumos automáticos</strong> e <strong>KPIs</strong> (Etapa 2), e <strong>gráficos/indicadores</strong> (Etapa 3).
+     Sua entrega final será um <strong>Mini-Dashboard Financeiro</strong> claro, confiável e bonito — pronto para apresentar.</p>
 
-<div class="desafio">
-  <p><strong>Missão:</strong> Analise seu saldo final e responda:</p>
-  <ul>
-    <li>Seu saldo foi positivo ou negativo?</li>
-    <li>Quais despesas poderiam ser reduzidas?</li>
-    <li>Como suas decisões afetaram o resultado final?</li>
+  <div class="grid-2">
+    <div>
+      <h4>🎯 O que deve conter</h4>
+      <ul class="check">
+        <li>Base em formato <strong>Tabela</strong> (sem mesclas, tipos corretos);</li>
+        <li>KPIs do mês (Receitas, Despesas, Saldo) com <strong>SOMASES</strong>;</li>
+        <li>Resumo por categoria no mês e identificação da <strong>categoria líder</strong>;</li>
+        <li>3 gráficos: <em>Receitas x Despesas</em>, <em>Despesas por Categoria</em>, <em>Evolução do Saldo</em>;</li>
+        <li>Indicadores visuais (semáforos/barras) e <strong>títulos que contam a história</strong>.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>🧪 Testes rápidos</h4>
+      <ul class="tips">
+        <li>Troque o <em>Mês Selecionado</em>: os KPIs e gráficos reagem?</li>
+        <li>Inclua um novo lançamento: os resumos “puxam” automaticamente?</li>
+        <li>As cores/semáforos comunicam bem o status do mês?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 🧠 Exemplo de narrativa (inspiração) -->
+<section class="bloco exemplo">
+  <h3>🧠 Narrativa sugerida (storytelling)</h3>
+  <p>“Em março, as despesas representaram <strong>68%</strong> das receitas, com <strong>Alimentação</strong> liderando (R$ 530). 
+     O saldo foi <strong>positivo</strong> devido a uma receita extra (freelance), mas há <strong>risco</strong> se a proporção de despesas
+     se mantiver acima de 70%. Para abril, o plano é reduzir alimentação em 10% e manter transporte abaixo de R$ 250.”</p>
+  <p class="hint">Títulos de gráficos devem reforçar a história (ex.: “Alimentação concentra 38% das despesas de Mar”).</p>
+</section>
+
+<!-- 📦 Checklist de entrega -->
+<section class="bloco teoria">
+  <h3>📦 Checklist para enviar</h3>
+  <ul class="check">
+    <li>Arquivo Excel (.xlsx) com as <strong>três etapas implementadas</strong> e um <strong>sheet “DASHBOARD”</strong> apresentável;</li>
+    <li>Área com <strong>parâmetros</strong> (Mês e, opcional, Categoria/Tipo) visível;</li>
+    <li>Gráficos limpos (sem 3D exagerado), legendas claras, cores coerentes;</li>
+    <li>KPIs com destaque visual e explicação sucinta (texto de 2–3 linhas);</li>
+    <li>(Opcional) Aba “Metas” comparando real x meta com mensagem automática.</li>
   </ul>
-  <p>➡️ Registre suas conclusões no seu painel final ou anote para a Fase 3 (Fluxo de Caixa).</p>
-</div>
+</section>
 
-<a href="/game/" class="btn-next">⬅️ Voltar ao Mapa do Jogo</a>
+<!-- 🧭 Rubrica simples (autoavaliação + base para avaliação) -->
+<section class="bloco teoria">
+  <h3>🧭 Rubrica de avaliação</h3>
+  <table>
+    <tr><th>Critério</th><th>Excelente (2)</th><th>Bom (1)</th><th>A melhorar (0)</th></tr>
+    <tr>
+      <td>Base de Dados</td>
+      <td>Tabela, tipos corretos, validações e mês automático</td>
+      <td>Tabela com pequenos deslizes</td>
+      <td>Sem Tabela ou dados inconsistentes</td>
+    </tr>
+    <tr>
+      <td>KPIs & Resumos</td>
+      <td>KPIs corretos + resumo por categoria confiável</td>
+      <td>KPIs corretos; resumo parcial</td>
+      <td>Fórmulas incorretas ou ausentes</td>
+    </tr>
+    <tr>
+      <td>Visual & Gráficos</td>
+      <td>3+ gráficos limpos + semáforos úteis</td>
+      <td>2 gráficos ok; pouco uso de indicadores</td>
+      <td>Gráficos confusos/ausentes</td>
+    </tr>
+    <tr>
+      <td>História & Clareza</td>
+      <td>Títulos narrativos e insights acionáveis</td>
+      <td>Títulos básicos e alguma conclusão</td>
+      <td>Sem narrativa/insights</td>
+    </tr>
+  </table>
+  <p class="hint">Pontuação máxima sugerida: 8 pontos (2 por critério). Você pode usar essa rubrica como autoavaliação.</p>
+</section>
+
+<!-- ✅ Botão de conclusão (POST) -->
+<section class="bloco desafio">
+  <h3>✅ Concluir Fase 2</h3>
+  <p>Quando seu dashboard estiver pronto, clique para registrar a conclusão da Fase 2 e liberar a próxima etapa no site.</p>
+
+  <form method="post" action="{% url 'fase2_finish' %}">
+    {% csrf_token %}
+    <input type="hidden" name="phase" value="2">
+    <input type="hidden" name="points" value="80"> <!-- ajuste a pontuação como quiser -->
+    <button type="submit" class="btn-next">🎉 Concluir Fase 2 e Registrar Progresso</button>
+  </form>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+    <a href="{% url 'fase2_etapa3' %}" class="btn-next">⬅️ Voltar à Etapa 3</a>
+    <a href="{% url 'game_home' %}" class="btn-next">🏠 Voltar ao Mapa</a>
+  </div>
+</section>
 {% endblock %}

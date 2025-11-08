@@ -17,9 +17,9 @@ urlpatterns = [
     path('fase2/etapa2/', views.fase2_etapa2, name='fase2_etapa2'),
     path('fase2/etapa3/', views.fase2_etapa3, name='fase2_etapa3'),
     path('fase2/final/', views.fase2_final, name='fase2_final'),
+    path('fase2/finish/', views.fase2_finish, name='fase2_finish'),  # POST
     
     # Fase 3
     path('fase3/etapa1/', views.fase3_etapa1, name='fase3_etapa1'),
-    path('fase3/etapa2/', views.fase3_etapa2, name='fase3_etapa2'),
-    path('fase3/final/', views.fase3_final, name='fase3_final'),
+    path('fase3/submit/', views.fase3_submit, name='fase3_submit'),
 ]

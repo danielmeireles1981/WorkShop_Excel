@@ -1,19 +1,170 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>💰 Etapa 1 — Lançamentos de Receitas e Despesas</h2>
+<h2>💰 Fase 2 — Etapa 1: Lançamentos de Receitas e Despesas</h2>
 
-<p>Nesta etapa, você vai construir a base da sua planilha financeira — onde tudo começa.</p>
+<!-- ✨ Abertura motivacional -->
+<section class="bloco teoria destaque">
+  <h3>✨ O coração do seu controle financeiro</h3>
+  <p>Sem <strong>lançamentos organizados</strong> não existe painel confiável. Aqui você cria a <em>base de dados</em> da sua planilha:
+     datas, descrições, tipos e valores — tudo limpo, validado e pronto para gerar <strong>resumos, gráficos e indicadores</strong>.</p>
 
-<div class="desafio">
-  <p><strong>Desafio:</strong> Crie no Excel uma tabela como esta:</p>
+  <div class="grid-2">
+    <div>
+      <h4>🎯 Objetivos da etapa</h4>
+      <ul class="check">
+        <li>Construir a tabela de lançamentos (Receita/Despesa).</li>
+        <li>Aplicar <strong>formato de moeda</strong> e <strong>data</strong> corretamente.</li>
+        <li>Usar <strong>Validação de Dados</strong> (lista “Receita/Despesa”).</li>
+        <li>Transformar em <strong>Tabela</strong> (Ctrl + T) para crescer com qualidade.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>⌨️ Atalhos ninja (Windows)</h4>
+      <ul class="tips">
+        <li><code>Ctrl + T</code> → Criar Tabela</li>
+        <li><code>Ctrl + ;</code> → Inserir data de hoje</li>
+        <li><code>Ctrl + Shift + $</code> → Formato Moeda</li>
+        <li><code>Alt + ↓</code> → Abrir lista de validação</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 📘 Teoria express -->
+<section class="bloco teoria">
+  <h3>📘 Boas práticas de dados</h3>
+  <div class="grid-2">
+    <div>
+      <ul class="code-bullets">
+        <li><strong>Uma linha = um lançamento</strong> (nada de mesclar células).</li>
+        <li>Colunas claras: <em>Data, Descrição, Categoria, Tipo, Valor, Mês</em>.</li>
+        <li><strong>Tipo</strong> deve ser padronizado (lista: “Receita”, “Despesa”).</li>
+        <li><strong>Valor</strong> é número (sem “R$” digitado como texto).</li>
+      </ul>
+      <p class="hint">Dados bem estruturados = resumos fáceis (SOMASES, MÉDIASE, gráficos…).</p>
+    </div>
+    <div class="callout info">
+      <strong>Erros comuns</strong>
+      <ul>
+        <li>Escrever “R$ 250” em vez de apenas <code>250</code> (formate como moeda).</li>
+        <li>Misturar grafias (“receita”, “Receita”, “RECEITA”).</li>
+        <li>Deixar colunas faltando (categoria, tipo, mês).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 🧠 Exemplo guiado -->
+<section class="bloco exemplo">
+  <h3>🧠 Exemplo guiado: “Minha base de lançamentos”</h3>
+  <p>Crie uma planilha com as colunas abaixo e, depois, transforme em <strong>Tabela</strong> (Ctrl + T).</p>
+
   <table>
-    <tr><th>Data</th><th>Descrição</th><th>Tipo</th><th>Valor</th></tr>
-    <tr><td>01/03/2025</td><td>Salário</td><td>Receita</td><td>R$ 2.000</td></tr>
-    <tr><td>02/03/2025</td><td>Mercado</td><td>Despesa</td><td>R$ 250</td></tr>
-    <tr><td>03/03/2025</td><td>Transporte</td><td>Despesa</td><td>R$ 80</td></tr>
+    <tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Tipo</th><th>Valor</th><th>Mês</th></tr>
+    <tr><td>01/03/2025</td><td>Salário</td><td>Renda</td><td>Receita</td><td>2500</td><td>Mar</td></tr>
+    <tr><td>02/03/2025</td><td>Mercado</td><td>Alimentação</td><td>Despesa</td><td>280</td><td>Mar</td></tr>
+    <tr><td>05/03/2025</td><td>Uber</td><td>Transporte</td><td>Despesa</td><td>42</td><td>Mar</td></tr>
+    <tr><td>10/03/2025</td><td>Venda online</td><td>Renda</td><td>Receita</td><td>180</td><td>Mar</td></tr>
   </table>
-  <p>➡️ Use formatação de tabela e garanta que suas colunas estejam nomeadas corretamente.</p>
-</div>
 
-<a href="{% url 'fase2_etapa2' %}" class="btn-next">Ir para Etapa 2 ➡️</a>
+  <div class="grid-2">
+    <div>
+      <h4>🔧 Passos essenciais</h4>
+      <ol>
+        <li>Selecione a área → <strong>Ctrl + T</strong> → marque “Minha tabela tem cabeçalhos”.</li>
+        <li>Coluna <em>Tipo</em>: <strong>Validação de Dados</strong> → Lista → <code>Receita,Despesa</code>.</li>
+        <li>Coluna <em>Valor</em>: <strong>Moeda</strong> (Ctrl + Shift + $).</li>
+        <li>Coluna <em>Mês</em>: preencha com abreviações (“Jan”, “Fev”, “Mar”…)
+            ou use <code>=TEXTO([@Data];"MMM")</code> se preferir automático.</li>
+      </ol>
+    </div>
+    <div class="callout success">
+      <strong>Mini-resumo imediato</strong>
+      <pre><code>
+# Em células fora da tabela (ex.: K2:K5):
+
+Total Receitas  =SOMASES([Valor];[Tipo];"Receita")
+Total Despesas  =SOMASES([Valor];[Tipo];"Despesa")
+Saldo           =K2-K3
+Ticket Médio $  =MÉDIASE([Valor];[Tipo];"Despesa")
+      </code></pre>
+      <p class="hint">Usando Tabela, os cabeçalhos viram <em>referências estruturadas</em> — mais legíveis e robustas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 💪 Desafio gamificado -->
+<section class="bloco desafio">
+  <h3>💪 Mão na massa: “Base blindada + Resumo instantâneo”</h3>
+  <p>Monte sua própria base e crie um resumo ao lado. Valha-se de validações para evitar erros.</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>📌 Requisitos da base</h4>
+      <ul class="plain">
+        <li>6+ linhas reais (misture receitas e despesas).</li>
+        <li>Validação em <strong>Tipo</strong> (apenas “Receita” ou “Despesa”).</li>
+        <li><strong>Mês</strong> automático: <code>=TEXTO([@Data];"MMM")</code>.</li>
+        <li>Formato de <strong>Valor</strong> como moeda.</li>
+      </ul>
+      <div class="callout warning">
+        <strong>Anti-erro:</strong> em <em>Categoria</em>, crie uma lista (Validação) com itens como
+        <em>Renda, Alimentação, Transporte, Lazer, Moradia, Saúde</em>.
+      </div>
+    </div>
+
+    <div>
+      <h4>📌 Resumo imediato</h4>
+      <ul class="plain">
+        <li><strong>Total Receitas</strong> (SOMASES por Tipo)</li>
+        <li><strong>Total Despesas</strong> (SOMASES por Tipo)</li>
+        <li><strong>Saldo</strong> (Receitas − Despesas)</li>
+        <li><strong>Maior Despesa</strong> (MÁXIMO filtrando Tipo = “Despesa” — opcional)</li>
+        <li><strong>Qtd. lançamentos</strong> (CONT.VALORES / CONT.SE — opcional)</li>
+      </ul>
+      <pre><code>
+# Ex.: Maior Despesa (faça com filtro auxiliar "Só Despesa" ou use MÁXIMOSES no Excel 365)
+=MÁXIMO(SE([Tipo]="Despesa";[Valor]))
+(Confirme como matriz legada com Ctrl+Shift+Enter se necessário)
+      </code></pre>
+    </div>
+  </div>
+
+  <div class="badges">
+    <span class="badge">🏅 Base Limpa</span>
+    <span class="badge">🛡️ Validação Pro</span>
+    <span class="badge">⚡ Resumo Instantâneo</span>
+  </div>
+</section>
+
+<!-- 🏎️ Modo Turbo -->
+<section class="bloco extra">
+  <h3>🏎️ Modo Turbo (opcional)</h3>
+  <div class="grid-2">
+    <div class="callout info">
+      <strong>Parâmetros dinâmicos</strong><br>
+      Crie células “<em>Mês Selecionado</em>” (ex.: H1 = "Mar") e “<em>Tipo Selecionado</em>” (H2 = "Despesa").<br>
+      Depois: <code>=SOMASES([Valor];[Mês];H1;[Tipo];H2)</code> — um resumo filtrável sem mexer nas fórmulas.
+    </div>
+    <div class="callout info">
+      <strong>Data-entrada inteligente</strong><br>
+      Adicione uma coluna “<em>Data de Cadastro</em>” com <code>=HOJE()</code> (ou registre via macro/formulário).
+      Útil para auditoria e dashboards temporais.
+    </div>
+  </div>
+</section>
+
+<!-- ✅ Checklist -->
+<section class="bloco teoria">
+  <h3>✅ Checklist — pronto para a Etapa 2?</h3>
+  <ul class="check">
+    <li>Tenho Tabela com colunas: Data, Descrição, Categoria, Tipo, Valor, Mês.</li>
+    <li>Tipo validado (lista) e Valor formatado como Moeda.</li>
+    <li>Resumo com Totais e Saldo funcionando.</li>
+    <li>(Opcional) Parâmetros dinâmicos para Mês e Tipo.</li>
+  </ul>
+  <p class="hint">Com a base feita, na próxima etapa criaremos <strong>resumos automáticos</strong> poderosos (SOMASES, indicadores, saldo) e deixaremos tudo pronto para os <strong>gráficos</strong>. 🚀</p>
+</section>
+
+<a href="{% url 'fase2_etapa2' %}" class="btn-next">Ir para Etapa 2 (Resumos Automáticos) ➡️</a>
 {% endblock %}

@@ -1,18 +1,167 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>📈 Etapa 3 — Gráficos e Indicadores Visuais</h2>
+<h2>📈 Fase 2 — Etapa 3: Gráficos & Indicadores Visuais</h2>
 
-<p>Hora de transformar números em informação visual!</p>
+<!-- ✨ abertura motivacional -->
+<section class="bloco teoria destaque">
+  <h3>✨ Faça seus números falarem</h3>
+  <p>Gráficos e indicadores transformam dados em <strong>histórias visuais</strong>. Nesta etapa você vai criar
+     painéis claros e bonitos a partir dos KPIs da Etapa 2 — prontos para apresentação e tomada de decisão.</p>
 
-<div class="desafio">
-  <p><strong>Desafio:</strong> Crie gráficos no Excel que mostrem:</p>
-  <ul>
-    <li>📊 Comparativo entre receitas e despesas.</li>
-    <li>📅 Evolução do saldo ao longo do mês.</li>
+  <div class="grid-2">
+    <div>
+      <h4>🎯 Objetivos da etapa</h4>
+      <ul class="check">
+        <li>Escolher o <strong>gráfico certo</strong> para cada pergunta.</li>
+        <li>Criar visualizações de <strong>Receitas x Despesas</strong> e <strong>Evolução do Saldo</strong>.</li>
+        <li>Usar <strong>indicadores visuais</strong> (barras de dados, ícones, “semi-velocímetro”).</li>
+      </ul>
+    </div>
+    <div>
+      <h4>🎨 Paleta & boas práticas</h4>
+      <ul class="tips">
+        <li>Verde = receitas, Vermelho = despesas, Azul = saldo.</li>
+        <li>Evite 3D e rótulos em excesso; destaque apenas o essencial.</li>
+        <li>Título que responda “o quê + quando + onde”.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 📘 teoria express -->
+<section class="bloco teoria">
+  <h3>📘 Quando usar cada tipo de gráfico</h3>
+  <div class="grid-2">
+    <div>
+      <ul class="code-bullets">
+        <li>📊 Colunas: comparar valores entre categorias (ex.: despesas por categoria no mês).</li>
+        <li>📈 Linha: tendência no tempo (ex.: saldo mensal).</li>
+        <li>🥧 Pizza/rosca: participação percentual quando há <em>poucas</em> categorias.</li>
+        <li>📶 Barras de dados (formatação condicional): ranking simples direto na tabela.</li>
+      </ul>
+      <p class="hint">Use segmentação por <strong>Mês</strong> e seletores (células) para gráficos “interativos”.</p>
+    </div>
+    <div class="callout info">
+      <strong>Checklist de legibilidade</strong>
+      <ul>
+        <li>Títulos claros + rótulos quando necessário.</li>
+        <li>Legenda curta; semântica de cores consistente.</li>
+        <li>Eixo Y começando em 0 (para colunas/barras).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 🧠 exemplo guiado -->
+<section class="bloco exemplo">
+  <h3>🧠 Exemplo guiado: “Painel Visual do Mês”</h3>
+  <p>Partindo dos KPIs e da tabela “Resumo por Categoria” da Etapa 2 (com <em>Mês Selecionado</em> em <code>H1</code>):</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>1) Colunas — Despesas por Categoria (mês)</h4>
+      <ol>
+        <li>Selecione a pequena tabela <em>Categoria x Total</em> (somada com <code>SOMASES</code>).</li>
+        <li>Inserir → <strong>Colunas agrupadas</strong>.</li>
+        <li>Cor das colunas: vermelho; título “Despesas por Categoria — {{ user.username }} ({{ user.profile.avatar }})”.</li>
+      </ol>
+
+      <h4>2) Linha — Evolução do Saldo</h4>
+      <ol>
+        <li>Monte tabela <em>Mês x Saldo</em> (Saldo = Receitas − Despesas por mês).</li>
+        <li>Inserir → <strong>Gráfico de linhas</strong>.</li>
+        <li>Marque pontos de máximo e mínimo (formatação de dados).</li>
+      </ol>
+    </div>
+
+    <div>
+      <h4>3) Colunas agrupadas — Receitas x Despesas (mês)</h4>
+      <ol>
+        <li>Tabela com 2 colunas: Receitas_mês e Despesas_mês.</li>
+        <li>Inserir → <strong>Colunas agrupadas</strong>.</li>
+        <li>Cor: verde para Receitas, vermelho para Despesas; rótulos de dados ligados.</li>
+      </ol>
+
+      <div class="callout success">
+        <strong>Indicadores rápidos na própria tabela</strong><br>
+        Formatação Condicional → Barras de Dados (Valor de despesa) e Conjunto de Ícones
+        (Saldo: ✅ &gt;= 0, ⚠️ &lt; 0).
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 💪 desafio gamificado -->
+<section class="bloco desafio">
+  <h3>💪 Mão na massa: “Mini-Dashboard Visual”</h3>
+  <p>Crie um painel com 4 blocos, todos respondendo ao <strong>Mês Selecionado</strong> (H1):</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>📌 Blocos obrigatórios</h4>
+      <ul class="plain">
+        <li><strong>Receitas x Despesas (colunas)</strong> — com rótulos.</li>
+        <li><strong>Despesas por Categoria (colunas)</strong> — top 5, ordene do maior ao menor.</li>
+        <li><strong>Evolução do Saldo (linha)</strong> — últimos 6 meses.</li>
+        <li><strong>Indicador de Status</strong> — célula que exibe “Excelente/Ok/Atenção” com base no saldo do mês:<br>
+          <code>=SE(Saldo_Mes>=500;"Excelente";SE(Saldo_Mes>=0;"Ok";"Atenção"))</code></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>🚦 Regras visuais</h4>
+      <ul class="plain">
+        <li>Saldo &lt; 0 → cor de atenção no cartão do saldo.</li>
+        <li>Categoria líder com destaque (borda + rótulo em negrito).</li>
+        <li>Use títulos que contem a história (“Saldo se recupera após…”, “Alimentação domina o mês”).</li>
+      </ul>
+
+      <div class="callout warning">
+        <strong>Qualidade do dado</strong><br>
+        Se algo não fizer sentido, revise a base (Etapa 1) e os KPIs (Etapa 2).
+      </div>
+    </div>
+  </div>
+
+  <div class="badges">
+    <span class="badge">🏅 Storytelling Visual</span>
+    <span class="badge">📊 Gráfico Adequado</span>
+    <span class="badge">🚦 Semáforo Claro</span>
+  </div>
+</section>
+
+<!-- 🏎️ modo turbo -->
+<section class="bloco extra">
+  <h3>🏎️ Modo Turbo (opcional)</h3>
+  <div class="grid-2">
+    <div class="callout info">
+      <strong>“Semi-velocímetro” com Rosca</strong><br>
+      Crie 2 séries em rosca (Meta e Progresso) e sobreponha:
+      <ol>
+        <li>Monte células: <em>Meta</em> (ex.: 100%) e <em>Progresso</em> (ex.: 62%).</li>
+        <li>Insira 2 gráficos de rosca; ajuste ângulo inicial 270°, tamanho de fatias e cores.</li>
+        <li>Centralize um rótulo com <strong>Progresso%</strong>. Resultado: um gauge simples e elegante.</li>
+      </ol>
+    </div>
+    <div class="callout info">
+      <strong>Sparklines (tendência dentro da célula)</strong><br>
+      Inserir → <em>Gráficos de Linha em Célula</em> (Sparklines) usando a série de saldos mensais.
+      Perfeito para mostrar tendência em 1 linha por categoria.
+    </div>
+  </div>
+</section>
+
+<!-- ✅ checklist -->
+<section class="bloco teoria">
+  <h3>✅ Checklist — pronto para a Etapa Final?</h3>
+  <ul class="check">
+    <li>Tenho ao menos 3 gráficos: Colunas (Categorias), Colunas (Receitas x Despesas), Linha (Saldo).</li>
+    <li>Indicadores visuais (barras/ícones) aplicados nas tabelas.</li>
+    <li>Painel responde ao “Mês Selecionado”.</li>
+    <li>Títulos contam a história do dado.</li>
   </ul>
-  <p>🎨 Use um gráfico de colunas ou pizza, conforme preferir.</p>
-  <p>💡 Dica: Utilize cores coerentes (verde = receita, vermelho = despesa).</p>
-</div>
+  <p class="hint">Com o painel visual pronto, seguimos para a <strong>Etapa Final</strong>: consolidar, refletir e preparar sua apresentação! 🎤</p>
+</section>
 
 <a href="{% url 'fase2_final' %}" class="btn-next">Ir para Etapa Final ➡️</a>
 {% endblock %}

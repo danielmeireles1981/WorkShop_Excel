@@ -1,17 +1,168 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>🪙 Etapa 1 — O Vale da SOMA()</h2>
-<p>No Vale da Soma, você aprende o poder de somar valores e descobrir o total das suas moedas.</p>
+<h2>🪙 Etapa 1 — O Vale das Operações (SOMA, SUBTRAÇÃO, MÉDIA, MÁXIMO, MÍNIMO)</h2>
 
-<div class="desafio">
-  <p><strong>Desafio:</strong> Calcule o total das receitas abaixo:</p>
-  <ul>
-    <li>Trabalho: R$ 1.200</li>
-    <li>Venda: R$ 350</li>
-    <li>Presente: R$ 150</li>
+<!-- ✨ Abertura: gancho emocional e contexto -->
+<section class="bloco teoria destaque">
+  <h3>✨ Por que isso importa?</h3>
+  <p>Se o Excel fosse um superpoder, <strong>as operações básicas</strong> seriam sua força inicial.
+    É com elas que você soma suas vitórias, entende suas médias, descobre seus recordes
+    (maior e menor valor) e dá o primeiro passo rumo a decisões melhores.<br>
+    <em>Hoje você destrava o “Poder da Planilha” — rápido, bonito e útil.</em></p>
+
+  <div class="grid-2">
+    <div>
+      <h4>🧭 Objetivo da etapa</h4>
+      <ul class="check">
+        <li>Aplicar <strong>=SOMA</strong>, <strong>subtração</strong>, <strong>=MÉDIA</strong>, <strong>=MÁXIMO</strong> e <strong>=MÍNIMO</strong> com confiança.</li>
+        <li>Formatar números como dinheiro e destacar resultados automaticamente.</li>
+        <li>Construir um mini-painel do mês em menos de 15 minutos.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>⌨️ Atalhos ninja (Windows)</h4>
+      <ul class="tips">
+        <li><code>Alt +=</code> → AutoSoma (insere <code>=SOMA(...)</code>)</li>
+        <li><code>Ctrl + Shift + $</code> → Moeda</li>
+        <li><code>Ctrl + ;</code> → Inserir data</li>
+        <li><code>Ctrl + C</code> / <code>Ctrl + V</code> → Copiar/colar fórmulas</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 📘 Teoria resumida e visual -->
+<section class="bloco teoria">
+  <h3>📘 Teoria em 60 segundos</h3>
+  <div class="grid-2">
+    <div>
+      <ul class="code-bullets">
+        <li>➕ Soma: <code>=SOMA(B2:B7)</code></li>
+        <li>➖ Subtração: <code>=B2-B3</code></li>
+        <li>📊 Média: <code>=MÉDIA(B2:B7)</code></li>
+        <li>⬆️ Máximo: <code>=MÁXIMO(B2:B7)</code></li>
+        <li>⬇️ Mínimo: <code>=MÍNIMO(B2:B7)</code></li>
+      </ul>
+      <p class="hint">Dica: use intervalos (ex.: <code>B2:B7</code>) em vez de somar célula por célula. É mais rápido, limpo e evita erros.</p>
+    </div>
+    <div class="callout info">
+      <strong>Erros comuns:</strong>
+      <ul>
+        <li>Usar vírgula em vez de ponto nas fórmulas (Excel PT-BR usa <em>;</em> para separar argumentos).</li>
+        <li>Somar células com texto “R$ 100” (formate como número/moeda, não texto).</li>
+        <li>Selecionar linhas a mais ou a menos no intervalo.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 🧠 Exemplo guiado (passo a passo visual) -->
+<section class="bloco exemplo">
+  <h3>🧠 Exemplo guiado: “Receitas do mês”</h3>
+  <p>Monte esta tabelinha (ou copie a ideia) e aplique as fórmulas:</p>
+
+  <table>
+    <tr><th>Fonte</th><th>Valor (R$)</th></tr>
+    <tr><td>Salário</td><td>2500</td></tr>
+    <tr><td>Freelance</td><td>800</td></tr>
+    <tr><td>Venda</td><td>400</td></tr>
+    <tr><td>Presente</td><td>150</td></tr>
+  </table>
+
+  <div class="grid-2">
+    <div>
+      <h4>🔢 Fórmulas principais</h4>
+      <pre><code>
+Total .......... =SOMA(B2:B5)
+Média .......... =MÉDIA(B2:B5)
+Maior valor .... =MÁXIMO(B2:B5)
+Menor valor .... =MÍNIMO(B2:B5)
+      </code></pre>
+    </div>
+    <div class="callout success">
+      <strong>Polimento em 30s:</strong>
+      <ul>
+        <li>Selecione valores → <code>Ctrl + Shift + $</code> (moeda)</li>
+        <li>Negrito no Total (Ctrl + B)</li>
+        <li>AutoSoma no Total: <code>Alt +=</code></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 💪 Desafio prático com gamificação -->
+<section class="bloco desafio">
+  <h3>💪 Mão na massa: Mini Painel “Mês 1”</h3>
+  <p>Crie duas tabelas: <strong>Receitas</strong> e <strong>Despesas</strong>. Depois, monte um resumo com 5 indicadores.</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>📥 Receitas</h4>
+      <ul class="plain">
+        <li>3 a 5 entradas (ex.: salário, extra, vendas)</li>
+        <li>Formate tudo como moeda</li>
+      </ul>
+      <h4>📤 Despesas</h4>
+      <ul class="plain">
+        <li>5 a 8 itens (ex.: aluguel, mercado, transporte…)</li>
+        <li>Formate tudo como moeda</li>
+      </ul>
+    </div>
+    <div>
+      <h4>📌 Indicadores (células separadas)</h4>
+      <pre><code>
+Total Receitas ... =SOMA(intervalo_receitas)
+Total Despesas ... =SOMA(intervalo_despesas)
+Saldo ............ =Total_Receitas-Total_Despesas
+Maior Despesa .... =MÁXIMO(intervalo_despesas)
+Menor Despesa .... =MÍNIMO(intervalo_despesas)
+      </code></pre>
+      <p class="hint">Destaque o <strong>Saldo</strong> com borda grossa e fundo suave.</p>
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <strong>Desafio bônus (2 min):</strong> Aplique <em>Formatação Condicional</em> no Saldo:
+    <ul>
+      <li>Verde se &gt;= 0</li>
+      <li>Vermelho se &lt; 0</li>
+    </ul>
+  </div>
+
+  <div class="badges">
+    <span class="badge">🏅 AutoSoma Pro</span>
+    <span class="badge">💎 Painel Limpo</span>
+    <span class="badge">⚡ Atalhos Ninja</span>
+  </div>
+</section>
+
+<!-- 🏎️ Modo Turbo (para encantar os avançados sem assustar iniciantes) -->
+<section class="bloco extra">
+  <h3>🏎️ Modo Turbo (opcional)</h3>
+  <div class="grid-2">
+    <div class="callout info">
+      <strong>AutoSoma Inteligente</strong><br>
+      Insira linhas no meio da tabela e perceba como o <code>=SOMA()</code> se ajusta.
+      Se não ajustar, altere o intervalo para incluir novos itens (ou transforme a área em <em>Tabela</em>).
+    </div>
+    <div class="callout info">
+      <strong>Tabela dinâmica (seed)</strong><br>
+      Converta suas listas em “Tabela” (Ctrl + T). Ela mantém formatação, cria filtros e expande fórmulas automaticamente.
+    </div>
+  </div>
+</section>
+
+<!-- ✅ Checklist de encerramento -->
+<section class="bloco teoria">
+  <h3>✅ Checklist — pronto para avançar?</h3>
+  <ul class="check">
+    <li>Usei SOMA, subtração, MÉDIA, MÁXIMO e MÍNIMO.</li>
+    <li>Formatei como moeda e destaquei o Saldo.</li>
+    <li>Montei um mini-painel com 5 indicadores.</li>
+    <li>Testei AutoSoma e, se possível, Tabela (Ctrl + T).</li>
   </ul>
-  <p>➡️ No Excel, você usaria: <code>=SOMA(B2:B4)</code></p>
-</div>
+  <p class="hint">Se tudo ok, você está preparado(a) para a lógica do <strong>SE()</strong> na Etapa 2.</p>
+</section>
 
-<a href="{% url 'etapa2' %}" class="btn-next">Ir para Etapa 2 ➡️</a>
+<a href="{% url 'etapa2' %}" class="btn-next">Ir para Etapa 2 (SE, E, OU) ➡️</a>
 {% endblock %}

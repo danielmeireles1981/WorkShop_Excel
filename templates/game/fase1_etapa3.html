@@ -1,20 +1,171 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>🌊 Etapa 3 — Mar das SOMASE()</h2>
-<p>No Mar das SOMASE, você vai aprender a somar valores com base em critérios específicos.</p>
+<h2>🌊 Etapa 3 — Mar da Lógica (SOMASE, SOMASES, MÉDIASE, CONT.SE + SE/E/OU)</h2>
 
-<div class="desafio">
-  <p><strong>Desafio:</strong> Calcule o total dos <em>gastos de alimentação</em> da tabela abaixo:</p>
+<!-- ✨ abertura: visão e propósito -->
+<section class="bloco teoria destaque">
+  <h3>✨ De números soltos a respostas inteligentes</h3>
+  <p>Agora você aprende a <strong>filtrar, somar, contar e tirar médias</strong> com base em <em>critérios</em>.
+     É o salto que transforma uma planilha em um <strong>painel de insights</strong> — perfeito para analisar
+     gastos por categoria, mês, faixa de valor e até múltiplas condições.</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>🎯 Objetivos da etapa</h4>
+      <ul class="check">
+        <li>Usar <strong>=SOMASE</strong> e <strong>=MÉDIASE</strong> para cálculos por critério.</li>
+        <li>Usar <strong>=SOMASES</strong> (múltiplos critérios) e <strong>=CONT.SE</strong>.</li>
+        <li>Combinar tudo com <strong>SE/E/OU</strong> para alertas e semáforos.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>⌨️ Atalhos úteis</h4>
+      <ul class="tips">
+        <li><code>Ctrl + T</code> → Transformar em Tabela (expansão automática)</li>
+        <li><code>Alt + =</code> → AutoSoma</li>
+        <li><code>Ctrl + Shift + $</code> → Formato Moeda</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 📘 teoria prática e visual -->
+<section class="bloco teoria">
+  <h3>📘 Teoria em 90 segundos</h3>
+  <div class="grid-2">
+    <div>
+      <ul class="code-bullets">
+        <li>💸 <strong>=SOMASE(intervalo; critério; intervalo_soma)</strong></li>
+        <li>💸💸 <strong>=SOMASES(intervalo_soma; intervalo1; critério1; intervalo2; critério2; ...)</strong></li>
+        <li>📊 <strong>=MÉDIASE(intervalo; critério; intervalo_média)</strong></li>
+        <li>🔢 <strong>=CONT.SE(intervalo; critério)</strong></li>
+      </ul>
+      <p class="hint">Critérios podem ser texto (ex.: <code>"Alimentação"</code>), números (<code>&gt;=300</code>) ou datas.</p>
+    </div>
+    <div class="callout info">
+      <strong>Erros comuns</strong>
+      <ul>
+        <li>Trocar a ordem em <code>SOMASE</code> (lembre: primeiro o <em>intervalo do critério</em>, depois o <em>intervalo a somar</em>).</li>
+        <li>Critério numérico sem aspas quando usa operadores: use <code>">=300"</code>.</li>
+        <li>Misturar números com texto “R$ 300”: formate como número/moeda.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 🧠 exemplo guiado -->
+<section class="bloco exemplo">
+  <h3>🧠 Exemplo guiado: “Mapa de Despesas por Critério”</h3>
+  <p>Use a tabela abaixo (ou similar). Dica: transforme em Tabela com <strong>Ctrl + T</strong> para facilitar.</p>
 
   <table>
-    <tr><th>Categoria</th><th>Valor</th></tr>
-    <tr><td>Alimentação</td><td>R$ 250</td></tr>
-    <tr><td>Transporte</td><td>R$ 180</td></tr>
-    <tr><td>Alimentação</td><td>R$ 120</td></tr>
+    <tr><th>Data</th><th>Categoria</th><th>Descrição</th><th>Valor</th><th>Mês</th></tr>
+    <tr><td>01/03/2025</td><td>Alimentação</td><td>Mercado</td><td>250</td><td>Mar</td></tr>
+    <tr><td>04/03/2025</td><td>Transporte</td><td>Ônibus</td><td>80</td><td>Mar</td></tr>
+    <tr><td>10/03/2025</td><td>Alimentação</td><td>Restaurante</td><td>120</td><td>Mar</td></tr>
+    <tr><td>22/03/2025</td><td>Lazer</td><td>Cinema</td><td>60</td><td>Mar</td></tr>
+    <tr><td>03/04/2025</td><td>Alimentação</td><td>Mercado</td><td>280</td><td>Abr</td></tr>
   </table>
 
-  <p>➡️ Fórmula: <code>=SOMASE(A2:A4;"Alimentação";B2:B4)</code></p>
-</div>
+  <div class="grid-2">
+    <div>
+      <h4>💡 Cálculos por critério</h4>
+      <pre><code>
+# Total alimentacao (1 critério)
+=SOMASE(B2:B6;"Alimentação";D2:D6)
 
-<a href="{% url 'etapa4' %}" class="btn-next">Ir para Etapa 4 ➡️</a>
+# Total alimentacao em MARÇO (2 critérios)
+=SOMASES(D2:D6; B2:B6;"Alimentação"; E2:E6;"Mar")
+
+# Média de gastos em Transporte
+=MÉDIASE(B2:B6;"Transporte";D2:D6)
+
+# Quantas despesas acima de 100?
+=CONT.SE(D2:D6;">100")
+      </code></pre>
+    </div>
+    <div class="callout success">
+      <strong>Combos com SE</strong>
+      <pre><code>
+# Alerta se Alimentação em MAR >= 500
+=SE(SOMASES(D2:D6;B2:B6;"Alimentação";E2:E6;"Mar")>=500;"⚠️ Alto";"OK")
+
+# Sinal verde se qtd. de gastos &gt; 100 for zero
+=SE(CONT.SE(D2:D6;">100")=0;"✔️ Controle OK";"Atenção")
+      </code></pre>
+      <p class="hint">Combine com Formatação Condicional para semáforos automáticos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 💪 desafio gamificado -->
+<section class="bloco desafio">
+  <h3>💪 Mão na massa: “Painel de Categorias Inteligentes”</h3>
+  <p>Monte um painel com 5 indicadores e 2 alertas automáticos.</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>📌 Indicadores</h4>
+      <ul class="plain">
+        <li>Total em Alimentação (mês atual) → <strong>SOMASES</strong></li>
+        <li>Total em Transporte (mês atual) → <strong>SOMASES</strong></li>
+        <li>Média por categoria “Lazer” → <strong>MÉDIASE</strong></li>
+        <li>Contagem de despesas &gt;= R$ 300 → <strong>CONT.SE</strong></li>
+        <li>Total geral de despesas do mês → <strong>SOMASES</strong> por Mês</li>
+      </ul>
+    </div>
+    <div>
+      <h4>🚦 Alertas</h4>
+      <ul class="plain">
+        <li><strong>Alimentação</strong> ≥ 40% do total do mês → “Concentrado”</li>
+        <li>Nº de despesas &gt;= 300 ≥ 3 → “Risco”</li>
+      </ul>
+      <pre><code>
+# % Alimentação do mês (supondo Total_Mes em X2 e Total_Alim_Mes em X3)
+=SE(X3>=0,4*X2;"Concentrado";"OK")
+
+# Risco por quantidade de gastos altos (supondo contagem em Y3)
+=SE(Y3>=3;"Risco";"Estável")
+      </code></pre>
+      <p class="hint">Dica: crie uma célula “Mês selecionado” (ex.: "Mar") e use como critério nas fórmulas.</p>
+    </div>
+  </div>
+
+  <div class="badges">
+    <span class="badge">🏅 SOMASE Master</span>
+    <span class="badge">📊 Média por Critério</span>
+    <span class="badge">🚦 Alertas Lógicos</span>
+  </div>
+</section>
+
+<!-- 🏎️ modo turbo -->
+<section class="bloco extra">
+  <h3>🏎️ Modo Turbo (opcional)</h3>
+  <div class="grid-2">
+    <div class="callout info">
+      <strong>Parâmetros dinâmicos</strong><br>
+      Crie uma célula “<em>Mês Selecionado</em>” (ex.: <code>H1 = "Mar"</code>) e “<em>Categoria</em>” (<code>H2 = "Alimentação"</code>).<br>
+      Depois: <code>=SOMASES(D:D;B:B;H2;E:E;H1)</code> — troca os filtros sem mexer na fórmula.
+    </div>
+    <div class="callout info">
+      <strong>Sem PROCV ainda (spoiler da Etapa 4)</strong><br>
+      Se tiver uma “Tabela de Metas por Categoria”, você pode usar <code>SE()</code> comparando
+      o total real com a meta da categoria (na Etapa 4 entraremos com PROCV/PROCH).
+    </div>
+  </div>
+</section>
+
+<!-- ✅ checklist -->
+<section class="bloco teoria">
+  <h3>✅ Checklist — pronto para a Etapa 4?</h3>
+  <ul class="check">
+    <li>Usei <strong>SOMASE</strong>, <strong>SOMASES</strong>, <strong>MÉDIASE</strong> e <strong>CONT.SE</strong>.</li>
+    <li>Construí 5 indicadores por critério (mês/categoria).</li>
+    <li>Implementei alertas com <strong>SE</strong> (e, se possível, semáforos visuais).</li>
+    <li>Parametrizei “Mês” e “Categoria” para filtros dinâmicos.</li>
+  </ul>
+  <p class="hint">Se está tudo ok, avance para o <strong>Castelo das Buscas</strong> (PROCV/PROCH/CORRESP+ÍNDICE) e conecte suas bases! 🏰</p>
+</section>
+
+<a href="{% url 'etapa4' %}" class="btn-next">Ir para Etapa 4 (PROCV, PROCH, CORRESP+ÍNDICE) ➡️</a>
 {% endblock %}

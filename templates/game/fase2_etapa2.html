@@ -1,18 +1,170 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>📊 Etapa 2 — Resumos Automáticos com Fórmulas</h2>
+<h2>📊 Fase 2 — Etapa 2: Resumos Automáticos (KPIs com SOMASES, MÉDIASE, CONT.SE)</h2>
 
-<p>Agora que você tem suas receitas e despesas, é hora de automatizar os cálculos!</p>
+<!-- ✨ abertura motivacional -->
+<section class="bloco teoria destaque">
+  <h3>✨ Do dado bruto ao insight</h3>
+  <p>Agora que sua <strong>base de lançamentos</strong> existe (Etapa 1), vamos transformá-la em
+     <strong>KPIs</strong> e <strong>resumos automáticos</strong> que mostram o que importa: quanto você ganha, gasta e como está seu saldo — por mês e por categoria.</p>
 
-<div class="desafio">
-  <p><strong>Desafio:</strong> Crie células que calculem automaticamente:</p>
-  <ul>
-    <li>✅ Total de receitas → <code>=SOMASE(C2:C10;"Receita";D2:D10)</code></li>
-    <li>✅ Total de despesas → <code>=SOMASE(C2:C10;"Despesa";D2:D10)</code></li>
-    <li>✅ Saldo → <code>=TotalReceitas-TotalDespesas</code></li>
+  <div class="grid-2">
+    <div>
+      <h4>🎯 Objetivos da etapa</h4>
+      <ul class="check">
+        <li>Construir KPIs: <em>Total de Receitas</em>, <em>Total de Despesas</em>, <em>Saldo</em>.</li>
+        <li>Gerar resumos por <strong>Mês</strong> e por <strong>Categoria</strong>.</li>
+        <li>Criar <strong>indicadores visuais</strong> (semafóricos) para leitura rápida.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>⌨️ Atalhos úteis</h4>
+      <ul class="tips">
+        <li><code>Ctrl + T</code> → Referências estruturadas (mais legível)</li>
+        <li><code>Alt + =</code> → AutoSoma</li>
+        <li><code>Alt + H + L</code> → Formatação Condicional</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 📘 teoria express -->
+<section class="bloco teoria">
+  <h3>📘 Conceitos-chave para resumos</h3>
+  <div class="grid-2">
+    <div>
+      <ul class="code-bullets">
+        <li><strong>Tabelas</strong> (Ctrl + T) geram cabeçalhos como <code>[Data]</code>, <code>[Tipo]</code>, <code>[Valor]</code>.</li>
+        <li><strong>=SOMASES</strong> filtra por múltiplos critérios (mês, tipo, categoria).</li>
+        <li><strong>=MÉDIASE</strong> calcula médias condicionais (ex.: ticket médio por categoria).</li>
+        <li><strong>=CONT.SE</strong> ajuda a contar ocorrências (ex.: nº de despesas &gt;= 300).</li>
+      </ul>
+      <p class="hint">Parâmetros dinâmicos (células “Mês Selecionado”, “Categoria”) tornam o resumo interativo sem mexer nas fórmulas.</p>
+    </div>
+    <div class="callout info">
+      <strong>Layout recomendado dos KPIs</strong>
+      <ul>
+        <li>Bloco 1: KPIs do mês (Receitas, Despesas, Saldo).</li>
+        <li>Bloco 2: Top categorias do mês.</li>
+        <li>Bloco 3: Indicadores (ticket médio, nº de lançamentos).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 🧠 exemplo guiado -->
+<section class="bloco exemplo">
+  <h3>🧠 Exemplo guiado: “KPIs do Mês”</h3>
+  <p>Suponha a Tabela <strong>Lanc</strong> com colunas: <em>Data, Descrição, Categoria, Tipo, Valor, Mês</em> (da Etapa 1).</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>📌 Parâmetros (fora da Tabela)</h4>
+      <table>
+        <tr><th>Célula</th><th>Descrição</th><th>Exemplo</th></tr>
+        <tr><td>H1</td><td>Mês Selecionado</td><td>Mar</td></tr>
+        <tr><td>H2</td><td>Categoria Selecionada</td><td>Alimentação</td></tr>
+      </table>
+
+      <h4>🔢 Fórmulas dos KPIs</h4>
+      <pre><code>
+# Total de Receitas (mês)
+=SOMASES(Lanc[Valor]; Lanc[Mês]; H1; Lanc[Tipo]; "Receita")
+
+# Total de Despesas (mês)
+=SOMASES(Lanc[Valor]; Lanc[Mês]; H1; Lanc[Tipo]; "Despesa")
+
+# Saldo (mês)
+=KPI_Receitas - KPI_Despesas
+      </code></pre>
+    </div>
+
+    <div class="callout success">
+      <strong>Resumo por Categoria (no mês)</strong>
+      <p>Em uma pequena tabela auxiliar (Categoria x Total no mês):</p>
+      <pre><code>
+# Em célula ao lado de cada Categoria (ex.: A12 = "Alimentação")
+=SOMASES(Lanc[Valor]; Lanc[Mês]; H1; Lanc[Categoria]; A12; Lanc[Tipo]; "Despesa")
+
+# Ticket médio da Categoria Selecionada no mês
+=MÉDIASE(Lanc[Valor]; Lanc[Categoria]; H2)
+      </code></pre>
+      <p class="hint">Destaque a <em>categoria líder</em> do mês com MÁXIMO e cor especial.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 💪 desafio gamificado -->
+<section class="bloco desafio">
+  <h3>💪 Mão na massa: “Painel Express do Mês”</h3>
+  <p>Construa um <strong>painel de KPIs</strong> com filtros por Mês e (opcional) Categoria.</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>📌 KPIs obrigatórios</h4>
+      <ul class="plain">
+        <li><strong>Total de Receitas (mês)</strong> — SOMASES</li>
+        <li><strong>Total de Despesas (mês)</strong> — SOMASES</li>
+        <li><strong>Saldo (mês)</strong> — diferença</li>
+        <li><strong>Top Categoria de Despesa (mês)</strong> — SOMASES por categoria + MÁXIMO</li>
+        <li><strong>Ticket Médio de Despesa (mês)</strong> — MÉDIASE</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>🚦 Indicadores/Alertas</h4>
+      <ul class="plain">
+        <li>Saldo &lt; 0 → “Atenção” (vermelho), caso contrário “OK” (verde).</li>
+        <li>Despesas ≥ 70% das Receitas → “Risco” (laranja).</li>
+        <li>Qtd. de despesas ≥ 300 ≥ 3 → “Concentrado” (amarelo).</li>
+      </ul>
+      <pre><code>
+# Risco por proporção de despesas
+=SE(KPI_Despesas >= 0,7*KPI_Receitas; "Risco"; "OK")
+
+# Qtd. de despesas ≥ 300 (mês)
+=CONT.SES(Lanc[Valor]; ">=300"; Lanc[Mês]; H1; Lanc[Tipo]; "Despesa")
+      </code></pre>
+      <p class="hint">Aplique Formatação Condicional (semáforos/cores) para leitura instantânea.</p>
+    </div>
+  </div>
+
+  <div class="badges">
+    <span class="badge">🏅 KPIs Claros</span>
+    <span class="badge">⚡ SOMASES Pro</span>
+    <span class="badge">🚦 Alertas Visuais</span>
+  </div>
+</section>
+
+<!-- 🏎️ modo turbo -->
+<section class="bloco extra">
+  <h3>🏎️ Modo Turbo (opcional)</h3>
+  <div class="grid-2">
+    <div class="callout info">
+      <strong>Tabela de Metas + Comparação</strong><br>
+      Crie uma aba “Metas” (Mês, Categoria, Meta_R$). Busque a meta da categoria/mês e compare:<br>
+      <code>=SE(Total_Categ_Mes > Meta; "Acima da meta"; "Dentro da meta")</code><br>
+      (Na Etapa 4 da Fase 1 você viu como usar PROCV ou ÍNDICE+CORRESP)
+    </div>
+    <div class="callout info">
+      <strong>Parâmetros múltiplos</strong><br>
+      Adicione “Tipo Selecionado” (H2 = Receita/Despesa) e replique KPIs com um clique:<br>
+      <code>=SOMASES(Lanc[Valor]; Lanc[Mês]; H1; Lanc[Tipo]; H2)</code>
+    </div>
+  </div>
+</section>
+
+<!-- ✅ checklist -->
+<section class="bloco teoria">
+  <h3>✅ Checklist — pronto para a Etapa 3?</h3>
+  <ul class="check">
+    <li>Tenho KPIs do mês (Receitas, Despesas, Saldo) funcionando.</li>
+    <li>Resumos por Categoria no mês (com identificação da líder).</li>
+    <li>Alertas visuais (saldo, proporção de despesas, concentração).</li>
+    <li>(Opcional) Parâmetros dinâmicos e metas comparativas.</li>
   </ul>
-  <p>💡 Dica: Use cores diferentes para destacar receitas e despesas.</p>
-</div>
+  <p class="hint">Com os resumos prontos, a próxima etapa é transformar isso em <strong>gráficos e indicadores visuais</strong> envolventes! 📈</p>
+</section>
 
-<a href="{% url 'fase2_etapa3' %}" class="btn-next">Ir para Etapa 3 ➡️</a>
+<a href="{% url 'fase2_etapa3' %}" class="btn-next">Ir para Etapa 3 (Gráficos & Indicadores) ➡️</a>
 {% endblock %}

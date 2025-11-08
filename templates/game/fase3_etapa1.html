@@ -1,19 +1,155 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<h2>📊 Etapa 1 — Montagem do Dashboard Final</h2>
+<h2>🎤 Fase 3 — Etapa 1: Apresentação do Dashboard + Ranking</h2>
 
-<p>É hora de reunir tudo o que você aprendeu e construir seu <strong>Dashboard da Vida</strong>!</p>
+<!-- ✨ Abertura: intenção e energia -->
+<section class="bloco teoria destaque">
+  <h3>✨ Hora do show: dados que viram decisão</h3>
+  <p>Você vai apresentar seu <strong>Dashboard Final</strong> em até <strong>5 minutos</strong>, contando a história do seu mês:
+     o que aconteceu, por quê e o que você recomenda. Depois, registre sua entrega e acompanhe o <strong>ranking ao vivo</strong>.</p>
 
-<div class="desafio">
-  <p><strong>Desafio:</strong> No Excel, crie um painel com:</p>
-  <ul>
-    <li>✅ Gráfico de evolução mensal do saldo;</li>
-    <li>✅ Comparativo entre receitas e despesas (gráfico de colunas ou pizza);</li>
-    <li>✅ Indicadores visuais de desempenho (ícones, cores ou barras);</li>
-    <li>✅ Uma área de conclusões com suas principais lições financeiras.</li>
+  <div class="grid-2">
+    <div>
+      <h4>🎯 Objetivos</h4>
+      <ul class="check">
+        <li>Entregar um <strong>pitch claro, visual e objetivo</strong> (até 5min).</li>
+        <li>Comprovar consistência dos seus números (base → KPIs → gráficos).</li>
+        <li>Registrar sua apresentação e pontuar no <strong>ranking</strong>.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>⌛ Cronômetro de 5 min</h4>
+      <div class="callout info">
+        <div id="timer" style="font-size:1.8rem;font-weight:700;">05:00</div>
+        <button id="startTimer" class="btn-next" type="button">▶️ Iniciar</button>
+        <button id="resetTimer" class="btn-next" type="button">⟲ Reset</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 📘 Teoria enxuta: como contar a história -->
+<section class="bloco teoria">
+  <h3>📘 Roteiro de pitch em 5 passos</h3>
+  <ol>
+    <li><strong>Contexto</strong>: qual pergunta seu dashboard responde? (ex.: “Equilíbrio financeiro em março”)</li>
+    <li><strong>2–3 KPIs-chave</strong>: receitas, despesas, saldo (+ 1 indicador relevante do seu caso)</li>
+    <li><strong>2 evidências visuais</strong>: gráfico de categorias + evolução do saldo</li>
+    <li><strong>Insight</strong>: por que aconteceu? (categoria líder, picos, concentração, sazonalidade)</li>
+    <li><strong>Ação recomendada</strong>: o que fazer no próximo mês (meta, corte, realocação)</li>
+  </ol>
+  <p class="hint">Título = “o quê + quando + onde”. Ex.: <em>“Despesas concentradas em Alimentação (38%) — Março/2025”</em>.</p>
+</section>
+
+<!-- 🧠 Exemplo guiado de narrativa -->
+<section class="bloco exemplo">
+  <h3>🧠 Exemplo de narrativa</h3>
+  <p>“Em março, as despesas foram <strong>68% das receitas</strong>, com <strong>Alimentação</strong> liderando (R$ 530).
+     O saldo ficou <strong>positivo</strong> graças a freelance de R$ 300. <strong>Risco</strong> se despesas seguirem acima de 70%.
+     <strong>Plano</strong>: reduzir alimentação em 10% e limitar transporte a R$ 250.”</p>
+  <div class="callout success">
+    <strong>Checklist do slide 1 (Resumo):</strong> KPIs + status do mês (Excelente/Ok/Atenção) + 1 frase de insight.
+  </div>
+</section>
+
+<!-- 💪 Desafio prático -->
+<section class="bloco desafio">
+  <h3>💪 Mão na massa: apresente e registre</h3>
+  <div class="grid-2">
+    <div>
+      <h4>📦 Entrega mínima</h4>
+      <ul class="plain">
+        <li>Dashboard com: KPIs do mês, gráfico Receitas x Despesas, gráfico por Categoria, linha do Saldo.</li>
+        <li>Parâmetros visíveis (Mês; opcional Categoria/Tipo).</li>
+        <li>Títulos e rótulos legíveis; semáforos claros.</li>
+      </ul>
+      <div class="callout warning">
+        <strong>Qualidade:</strong> se algo “não fecha”, revise sua base (Etapa 1) e KPIs (Etapa 2).
+      </div>
+    </div>
+
+    <div>
+      <h4>📝 Registro da apresentação</h4>
+      <form method="post" action="{% url 'fase3_submit' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="grid-2">
+          <div>
+            <label><strong>Resumo (2–3 linhas)</strong></label>
+            <textarea name="resumo" required placeholder="Qual foi o principal insight do mês?"></textarea>
+          </div>
+          <div>
+            <label><strong>Link/Arquivo (opcional)</strong></label>
+            <input type="url" name="link" placeholder="Link do arquivo na nuvem (Drive/OneDrive)" />
+            <input type="file" name="anexo" />
+          </div>
+        </div>
+        <label><strong>Autoavaliação (0 a 10)</strong></label>
+        <input type="number" name="auto_score" min="0" max="10" step="0.5" required />
+        <button type="submit" class="btn-next">📤 Enviar apresentação & marcar pontos</button>
+      </form>
+      <p class="hint">A pontuação final pode considerar rubrica do instrutor e, opcionalmente, nota de pares.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 🏆 Ranking ao vivo -->
+<section class="bloco teoria">
+  <h3>🏆 Ranking</h3>
+  {% if top_scores %}
+  <table>
+    <tr><th>#</th><th>Jogador</th><th>Avatar</th><th>Pontos</th><th>Atualizado</th></tr>
+    {% for s in top_scores %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ s.user.username }}</td>
+      <td style="font-size:1.2rem;">{{ s.user.profile.avatar }}</td>
+      <td><strong>{{ s.points_total }}</strong></td>
+      <td>{{ s.updated_at|date:"d/m H:i" }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p>Ninguém no ranking ainda. Seja <strong>o primeiro</strong> a pontuar! 🚀</p>
+  {% endif %}
+</section>
+
+<!-- ✅ Checklist de fechamento -->
+<section class="bloco teoria">
+  <h3>✅ Checklist rápido</h3>
+  <ul class="check">
+    <li>Roteiro de 5 passos preparado.</li>
+    <li>Dashboard com KPIs e 2+ gráficos limpos.</li>
+    <li>Insight e ação recomendada claros.</li>
+    <li>Entrega registrada e pontuada.</li>
   </ul>
-  <p>💡 Dica: capriche no visual — este será o seu cartão de visita no Ranking Final!</p>
-</div>
 
-<a href="{% url 'fase3_etapa2' %}" class="btn-next">Ir para Etapa 2 ➡️</a>
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <a href="{% url 'fase2_final' %}" class="btn-next">⬅️ Revisar Fase 2</a>
+    <a href="{% url 'game_home' %}" class="btn-next">🏠 Voltar ao Mapa</a>
+  </div>
+</section>
+
+<!-- ⏱️ Timer JS -->
+<script>
+(function(){
+  let sec = 300; // 5 min
+  let tId = null;
+  const el = document.getElementById('timer');
+  const start = document.getElementById('startTimer');
+  const reset = document.getElementById('resetTimer');
+
+  function render(){
+    const m = String(Math.floor(sec/60)).padStart(2,'0');
+    const s = String(sec%60).padStart(2,'0');
+    el.textContent = `${m}:${s}`;
+    if(sec <= 10){ el.style.color = '#c62828'; el.style.fontWeight = '800'; }
+  }
+  function tick(){ if(sec>0){ sec--; render(); } else { clearInterval(tId); } }
+
+  start?.addEventListener('click', ()=>{ if(tId) return; tId = setInterval(tick,1000); });
+  reset?.addEventListener('click', ()=>{ clearInterval(tId); tId=null; sec=300; el.style.color=''; el.style.fontWeight='700'; render(); });
+  render();
+})();
+</script>
 {% endblock %}

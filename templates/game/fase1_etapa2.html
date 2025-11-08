@@ -1,12 +1,168 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>🔥 Etapa 2 — Montanha do SE()</h2>
-<p>Na Montanha do SE, você aprenderá a tomar decisões com base em condições.</p>
+<h2>🔥 Etapa 2 — Montanha das Condições (SE, E, OU)</h2>
 
-<div class="desafio">
-  <p>Se o saldo for positivo, diga “SOBROU”, senão “FALTOU”.</p>
-  <p>➡️ Fórmula: <code>=SE(B2>0;"SOBROU";"FALTOU")</code></p>
-</div>
+<!-- ✨ abertura motivacional -->
+<section class="bloco teoria destaque">
+  <h3>✨ Planilhas que pensam</h3>
+  <p>Agora o Excel ganha cérebro. Com <strong>SE</strong>, <strong>E</strong> e <strong>OU</strong>, sua planilha
+     passa a <em>tomar decisões</em>: classifica, aprova, alerta e recomenda. É aqui que relatórios ficam <strong>inteligentes</strong>.</p>
 
-<a href="{% url 'etapa3' %}" class="btn-next">Ir para Etapa 3 ➡️</a>
+  <div class="grid-2">
+    <div>
+      <h4>🎯 Objetivos da etapa</h4>
+      <ul class="check">
+        <li>Dominar <strong>=SE()</strong> para regras básicas e mensagens dinâmicas.</li>
+        <li>Combinar <strong>=SE()</strong> com <strong>=E()</strong> e <strong>=OU()</strong>.</li>
+        <li>Criar <strong>semáforos visuais</strong> para status (aprovado/risco/atenção).</li>
+      </ul>
+    </div>
+    <div>
+      <h4>⌨️ Atalhos úteis (Windows)</h4>
+      <ul class="tips">
+        <li><code>Ctrl + 1</code> → Formatar células</li>
+        <li><code>Alt + H + L</code> → Formatação condicional</li>
+        <li><code>F2</code> → Editar célula (ver fórmulas)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 📘 teoria enxuta e visual -->
+<section class="bloco teoria">
+  <h3>📘 Teoria em 90 segundos</h3>
+  <div class="grid-2">
+    <div>
+      <ul class="code-bullets">
+        <li>⚖️ SE → <code>=SE(teste_lógico; valor_se_verdadeiro; valor_se_falso)</code></li>
+        <li>🤝 E  → <code>=E(cond1; cond2; ...)</code> (todas verdadeiras)</li>
+        <li>🔀 OU → <code>=OU(cond1; cond2; ...)</code> (qualquer verdadeira)</li>
+      </ul>
+      <p class="hint">Regra de ouro: primeiro pense a <strong>frase lógica</strong> (“se saldo ≥ 0 então… senão…”), depois transforme em fórmula.</p>
+    </div>
+    <div class="callout info">
+      <strong>Erros comuns</strong>
+      <ul>
+        <li>Esquecer <em>;</em> como separador de argumentos (PT-BR usa ponto e vírgula).</li>
+        <li>Comparar texto sem aspas → use <code>"Aprovado"</code>.</li>
+        <li>Ordem das condições em SE aninhado confusa → escreva a regra antes, em português.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 🧠 exemplo guiado -->
+<section class="bloco exemplo">
+  <h3>🧠 Exemplo guiado: “Termômetro do Mês”</h3>
+  <p>Você tem um <strong>Saldo</strong> (Receitas − Despesas) e quer classificar o mês:</p>
+  <ul class="plain">
+    <li>Saldo ≥ 500 → <strong>Excelente</strong></li>
+    <li>0 ≤ Saldo &lt; 500 → <strong>Ok</strong></li>
+    <li>Saldo &lt; 0 → <strong>Atenção</strong></li>
+  </ul>
+
+  <div class="grid-2">
+    <div>
+      <h4>🔢 Fórmulas</h4>
+      <pre><code>
+# Saldo em C2 (ex.: C2 = Receitas - Despesas)
+
+# Versão com SE aninhado
+=SE(C2>=500;"Excelente";SE(C2>=0;"Ok";"Atenção"))
+
+# Versão “falando” com E()
+=SE(E(C2>=0; C2<500);"Ok"; SE(C2>=500;"Excelente"; "Atenção"))
+
+# Bandeira simples (bom/ruim)
+=SE(C2>=0;"SOBROU";"FALTOU")
+
+# Alerta OU: mês crítico se saldo &lt; 0 OU (despesa &gt;= 70% da receita)
+=SE(OU(C2&lt;0; Despesas>=0,7*Receitas);"Crítico";"Estável")
+      </code></pre>
+    </div>
+    <div class="callout success">
+      <strong>Semáforo visual (2 min)</strong>
+      <ol>
+        <li>Selecione a célula “Classificação”.</li>
+        <li>Formatação Condicional → “Regras de realce” → “Texto que contém”.</li>
+        <li>“Excelente” (verde), “Ok” (amarelo), “Atenção” (vermelho).</li>
+      </ol>
+      <p class="hint">Ou use “Conjuntos de ícones” (semáforos) para ficar ainda mais visual.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 💪 desafio gamificado -->
+<section class="bloco desafio">
+  <h3>💪 Mão na massa: “Radar Financeiro”</h3>
+  <p>Monte um radar de status do mês com 3 indicadores inteligentes.</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>📌 Indicador 1 — Status do Saldo</h4>
+      <ul class="plain">
+        <li>Use o <strong>SE aninhado</strong> (Excelente / Ok / Atenção).</li>
+        <li>Ative o semáforo (Formatação Condicional).</li>
+      </ul>
+
+      <h4>📌 Indicador 2 — Meta de Economia</h4>
+      <ul class="plain">
+        <li>Meta em D2 (ex.: R$ 400) e Economia em E2.</li>
+        <li><code>=SE(E(E2>=D2; Saldo>=0);"Meta atingida";"A ajustar")</code></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>📌 Indicador 3 — Risco de Gastos</h4>
+      <ul class="plain">
+        <li>Despesas &gt;= 80% das Receitas <strong>OU</strong> 2 categorias acima de R$ 300 → “Risco”.</li>
+        <li>Sugestão de fórmula (ajuste seus intervalos):<br>
+          <code>=SE(OU(Despesas>=0,8*Receitas; Qtd_Categorias_Acima300>=2);"Risco";"Ok")</code>
+        </li>
+      </ul>
+
+      <div class="callout warning">
+        <strong>Bonus visual:</strong> pinte automaticamente a linha de qualquer despesa &gt;= R$ 300.
+      </div>
+    </div>
+  </div>
+
+  <div class="badges">
+    <span class="badge">🏅 Lógica Clara</span>
+    <span class="badge">🚦 Semáforo Pro</span>
+    <span class="badge">🧩 Combinações E/OU</span>
+  </div>
+</section>
+
+<!-- 🏎️ modo turbo -->
+<section class="bloco extra">
+  <h3>🏎️ Modo Turbo (opcional)</h3>
+  <div class="grid-2">
+    <div class="callout info">
+      <strong>SE + TEXTO colorido</strong><br>
+      Em uma célula, exiba recomendações automáticas:<br>
+      <code>=SE(Saldo&lt;0;"Reduzir Lazer 10%";"Manter plano")</code><br>
+      Dica: combine com um <em>comentário</em> explicando o porquê.
+    </div>
+    <div class="callout info">
+      <strong>Validação + SE</strong><br>
+      Use Validação de Dados para “Meta” (mín. 0). Mostre alerta:<br>
+      <code>=SE(Meta&lt;0;"Meta inválida";"")</code>
+    </div>
+  </div>
+</section>
+
+<!-- ✅ checklist final -->
+<section class="bloco teoria">
+  <h3>✅ Checklist — pronto para a Etapa 3?</h3>
+  <ul class="check">
+    <li>Criei classificações dinâmicas com <strong>SE</strong>.</li>
+    <li>Usei <strong>E</strong> e <strong>OU</strong> para regras mais ricas.</li>
+    <li>Ativei semáforos/cores com Formatação Condicional.</li>
+    <li>Montei 3 indicadores do meu “Radar Financeiro”.</li>
+  </ul>
+  <p class="hint">Se tudo ok, partimos para a combinação de <strong>operações + condicionais</strong> na Etapa 3! 💡</p>
+</section>
+
+<a href="{% url 'etapa3' %}" class="btn-next">Ir para Etapa 3 (SOMASE, MÉDIASE + lógica) ➡️</a>
 {% endblock %}
