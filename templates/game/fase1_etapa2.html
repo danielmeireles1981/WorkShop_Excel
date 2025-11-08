@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>🔥 Etapa 2 — Montanha do SE()</h2>
+<p>Na Montanha do SE, você aprenderá a tomar decisões com base em condições.</p>
+
+<div class="desafio">
+  <p>Se o saldo for positivo, diga “SOBROU”, senão “FALTOU”.</p>
+  <p>➡️ Fórmula: <code>=SE(B2>0;"SOBROU";"FALTOU")</code></p>
+</div>
+
+<a href="{% url 'etapa3' %}" class="btn-next">Ir para Etapa 3 ➡️</a>
+{% endblock %}

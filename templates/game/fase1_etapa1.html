@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>🪙 Etapa 1 — O Vale da SOMA()</h2>
+<p>No Vale da Soma, você aprende o poder de somar valores e descobrir o total das suas moedas.</p>
+
+<div class="desafio">
+  <p><strong>Desafio:</strong> Calcule o total das receitas abaixo:</p>
+  <ul>
+    <li>Trabalho: R$ 1.200</li>
+    <li>Venda: R$ 350</li>
+    <li>Presente: R$ 150</li>
+  </ul>
+  <p>➡️ No Excel, você usaria: <code>=SOMA(B2:B4)</code></p>
+</div>
+
+<a href="{% url 'etapa2' %}" class="btn-next">Ir para Etapa 2 ➡️</a>
+{% endblock %}

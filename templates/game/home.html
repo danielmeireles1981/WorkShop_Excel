@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>🎯 Mapa do Jogo — O Jogo da Vida: Edição Excel</h2>
+  <p style="text-align:center;">Escolha uma fase para começar sua jornada financeira!</p>
+
+  <div class="fase-container">
+    <!-- Fase 1 -->
+    <div class="fase-card">
+      <h3>📘 Fase 1 — Funções Essenciais do Excel</h3>
+      <p>Aprenda a dominar as fórmulas básicas que movem o mundo das planilhas!</p>
+      <ul>
+        <li>🪙 Etapa 1 — O Vale da SOMA()</li>
+        <li>🔥 Etapa 2 — Montanha do SE()</li>
+        <li>🌊 Etapa 3 — Mar das SOMASE()</li>
+        <li>🏰 Etapa 4 — Castelo do PROCV()</li>
+      </ul>
+      <a href="{% url 'etapa1' %}" class="btn-start">▶️ Iniciar Fase 1</a>
+    </div>
+
+    <!-- Fase 2 -->
+    <div class="fase-card">
+      <h3>💰 Fase 2 — Finanças Pessoais</h3>
+      <p>Construa sua planilha de receitas, despesas e descubra o poder do equilíbrio financeiro!</p>
+      <ul>
+        <li>💰 Etapa 1 — Lançamentos de Receitas e Despesas</li>
+        <li>📊 Etapa 2 — Resumos Automáticos</li>
+        <li>📈 Etapa 3 — Gráficos e Indicadores</li>
+        <li>🏁 Etapa Final — Missão “Equilíbrio Financeiro”</li>
+      </ul>
+      <a href="{% url 'fase2_etapa1' %}" class="btn-start">▶️ Iniciar Fase 2</a>
+    </div>
+
+    <div class="fase-card">
+      <h3>🏆 Fase 3 — Dashboard Final e Ranking</h3>
+      <p>Crie e apresente o seu “Dashboard da Vida”, demonstrando o impacto das suas decisões financeiras.</p>
+      <ul>
+        <li>📊 Etapa 1 — Montagem do Dashboard</li>
+        <li>🎤 Etapa 2 — Interpretação e Apresentação</li>
+        <li>🏁 Etapa Final — Ranking e Conclusão</li>
+      </ul>
+      <a href="{% url 'fase3_etapa1' %}" class="btn-start">▶️ Iniciar Fase 3</a>
+    </div>
+  </div>
+{% endblock %}

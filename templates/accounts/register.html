@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>🧾 Cadastro no Jogo</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <label>Usuário:</label>
+    <input type="text" name="username" required>
+
+    <label>Senha:</label>
+    <input type="password" name="password" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <label>Data de Nascimento:</label>
+    <input type="date" name="data_nascimento" required>
+
+    <label>Escolha seu Avatar:</label>
+    <select name="avatar" required>
+        <option value="🙂">🙂 Aventureiro</option>
+        <option value="🧙‍♂️">🧙‍♂️ Mestre das Planilhas</option>
+        <option value="🧑‍💻">🧑‍💻 Analista Financeiro</option>
+        <option value="🦸‍♀️">🦸‍♀️ Heroína dos Cálculos</option>
+        <option value="🐉">🐉 Guardião dos Dados</option>
+        <option value="👩‍🚀">👩‍🚀 Exploradora do Excel</option>
+    </select>
+
+    <label>Personagem:</label>
+    <select name="personagem" required>
+        <option value="universitario">Estudante Universitário</option>
+        <option value="empreendedor">Empreendedor Júnior</option>
+        <option value="aprendiz">Aprendiz Financeiro</option>
+    </select>
+
+    <button type="submit">Cadastrar-se</button>
+</form>
+
+{% endblock %}

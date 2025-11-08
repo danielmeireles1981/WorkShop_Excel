@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>O Jogo da Vida: Edição Excel</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header>
+    <div class="header-top">
+        <h1>💼 O Jogo da Vida: Edição Excel</h1>
+    </div>
+
+    <nav class="menu">
+        <a href="/">🏠 Início</a>
+        <a href="/game/">🎯 Fases</a>
+        <a href="/ranking/">🏆 Ranking</a>
+
+        {% if user.is_authenticated %}
+        <span class="user-box">
+            <span class="avatar">{{ user.profile.avatar }}</span>
+            <span class="username">{{ user.username }}</span>
+            <a href="{% url 'logout' %}" class="logout">🚪 Sair</a>
+        </span>
+        {% else %}
+        <a href="/accounts/login/">🔐 Login</a>
+        <a href="/accounts/register/">🧾 Cadastro</a>
+        {% endif %}
+    </nav>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    <p>© 2025 - Workshop Interativo “O Jogo da Vida: Edição Excel”</p>
+</footer>
+</body>
+</html>

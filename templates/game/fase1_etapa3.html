@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>🌊 Etapa 3 — Mar das SOMASE()</h2>
+<p>No Mar das SOMASE, você vai aprender a somar valores com base em critérios específicos.</p>
+
+<div class="desafio">
+  <p><strong>Desafio:</strong> Calcule o total dos <em>gastos de alimentação</em> da tabela abaixo:</p>
+
+  <table>
+    <tr><th>Categoria</th><th>Valor</th></tr>
+    <tr><td>Alimentação</td><td>R$ 250</td></tr>
+    <tr><td>Transporte</td><td>R$ 180</td></tr>
+    <tr><td>Alimentação</td><td>R$ 120</td></tr>
+  </table>
+
+  <p>➡️ Fórmula: <code>=SOMASE(A2:A4;"Alimentação";B2:B4)</code></p>
+</div>
+
+<a href="{% url 'etapa4' %}" class="btn-next">Ir para Etapa 4 ➡️</a>
+{% endblock %}

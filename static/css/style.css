@@ -1,0 +1,361 @@
+/* ===============================
+   O Jogo da Vida: Edição Excel
+   Tema: verde, cinza e amarelo
+   =============================== */
+
+/* Reset e base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f2f2f2;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #1d6f42; /* verde Excel */
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    color: #ffe066;
+}
+
+/* Conteúdo principal */
+main {
+    flex: 1;
+    padding: 30px 10%;
+}
+
+/* Títulos e seções */
+h2 {
+    color: #1d6f42;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Formulários */
+form {
+    background-color: #fff;
+    border: 2px solid #dcdcdc;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+button {
+    background-color: #1d6f42;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #238c52;
+}
+
+/* Listas de fases e ranking */
+ul, ol {
+    list-style: none;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+li {
+    background-color: #fff;
+    border: 2px solid #dcdcdc;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 12px 15px;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+li strong {
+    color: #1d6f42;
+}
+
+/* Mensagens Django (success, error) */
+ul.messages {
+    list-style: none;
+    max-width: 500px;
+    margin: 15px auto;
+    padding: 0;
+}
+
+ul.messages li {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-align: center;
+}
+
+ul.messages li.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+ul.messages li.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    background-color: #eee;
+    padding: 10px;
+    font-size: 0.9rem;
+    color: #555;
+    border-top: 2px solid #ccc;
+}
+
+/* --- Estilo dos desafios --- */
+.desafio {
+    background-color: #fffbe6;
+    border-left: 6px solid #ffc107;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* --- Botão de próxima etapa --- */
+.btn-next {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #1d6f42;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn-next:hover {
+    background-color: #238c52;
+}
+
+/* ======== Estilo da página do mapa de fases ======== */
+.fase-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.fase-card {
+    background-color: #ffffff;
+    border: 2px solid #ccc;
+    border-radius: 16px;
+    padding: 20px;
+    width: 320px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.fase-card:hover {
+    transform: translateY(-4px);
+}
+
+.fase-card h3 {
+    color: #1d6f42;
+    margin-bottom: 10px;
+}
+
+.fase-card ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.fase-card li {
+    margin-bottom: 4px;
+}
+
+.btn-start {
+    display: inline-block;
+    background-color: #1d6f42;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-start:hover {
+    background-color: #238c52;
+}
+
+.bloqueado {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.bloqueado .btn-start {
+    pointer-events: none;
+}
+/* --- Usuário logado no topo --- */
+.user-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    background-color: #ffffff22;
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.user-info .avatar {
+    font-size: 1.6rem;
+}
+
+.user-info .username {
+    font-weight: bold;
+    color: #ffe066;
+}
+
+.user-info .idade {
+    color: #fff;
+}
+
+.logout {
+    margin-left: 10px;
+    color: #fff;
+    text-decoration: underline;
+}
+/* === Cabeçalho e Menu === */
+header {
+    background-color: #1d6f42;
+    color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header-top {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 1rem;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    color: #ffe066;
+}
+
+/* === Usuário logado no topo === */
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(255,255,255,0.1);
+    padding: 4px 8px;
+    border-radius: 10px;
+}
+
+.user-box .avatar {
+    font-size: 1.5rem;
+}
+
+.user-box .username {
+    font-weight: bold;
+    color: #ffe066;
+}
+
+.logout {
+    color: #fff;
+    text-decoration: underline;
+}
+/* --- Tabelas dos desafios --- */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 600px;
+    margin: 15px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #1d6f42;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f8f8;
+}

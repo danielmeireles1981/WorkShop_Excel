@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>💰 Etapa 1 — Lançamentos de Receitas e Despesas</h2>
+
+<p>Nesta etapa, você vai construir a base da sua planilha financeira — onde tudo começa.</p>
+
+<div class="desafio">
+  <p><strong>Desafio:</strong> Crie no Excel uma tabela como esta:</p>
+  <table>
+    <tr><th>Data</th><th>Descrição</th><th>Tipo</th><th>Valor</th></tr>
+    <tr><td>01/03/2025</td><td>Salário</td><td>Receita</td><td>R$ 2.000</td></tr>
+    <tr><td>02/03/2025</td><td>Mercado</td><td>Despesa</td><td>R$ 250</td></tr>
+    <tr><td>03/03/2025</td><td>Transporte</td><td>Despesa</td><td>R$ 80</td></tr>
+  </table>
+  <p>➡️ Use formatação de tabela e garanta que suas colunas estejam nomeadas corretamente.</p>
+</div>
+
+<a href="{% url 'fase2_etapa2' %}" class="btn-next">Ir para Etapa 2 ➡️</a>
+{% endblock %}

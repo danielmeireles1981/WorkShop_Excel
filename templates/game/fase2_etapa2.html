@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>📊 Etapa 2 — Resumos Automáticos com Fórmulas</h2>
+
+<p>Agora que você tem suas receitas e despesas, é hora de automatizar os cálculos!</p>
+
+<div class="desafio">
+  <p><strong>Desafio:</strong> Crie células que calculem automaticamente:</p>
+  <ul>
+    <li>✅ Total de receitas → <code>=SOMASE(C2:C10;"Receita";D2:D10)</code></li>
+    <li>✅ Total de despesas → <code>=SOMASE(C2:C10;"Despesa";D2:D10)</code></li>
+    <li>✅ Saldo → <code>=TotalReceitas-TotalDespesas</code></li>
+  </ul>
+  <p>💡 Dica: Use cores diferentes para destacar receitas e despesas.</p>
+</div>
+
+<a href="{% url 'fase2_etapa3' %}" class="btn-next">Ir para Etapa 3 ➡️</a>
+{% endblock %}

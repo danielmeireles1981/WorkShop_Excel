@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>🏰 Etapa 4 — Castelo do PROCV()</h2>
+<p>No Castelo do PROCV, você aprenderá a buscar informações escondidas em tabelas mágicas.</p>
+
+<div class="desafio">
+  <p><strong>Desafio:</strong> Encontre o preço de um produto usando o código.</p>
+
+  <table>
+    <tr><th>Código</th><th>Produto</th><th>Preço</th></tr>
+    <tr><td>101</td><td>Mouse</td><td>R$ 60</td></tr>
+    <tr><td>102</td><td>Teclado</td><td>R$ 120</td></tr>
+    <tr><td>103</td><td>Monitor</td><td>R$ 800</td></tr>
+  </table>
+
+  <p>➡️ Fórmula: <code>=PROCV(102;A2:C4;3;FALSO)</code></p>
+</div>
+
+<a href="/game/" class="btn-next">🏁 Voltar ao Mapa do Jogo</a>
+{% endblock %}

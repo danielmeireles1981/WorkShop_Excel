@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Ranking dos Participantes</h2>
+<ol>
+  {% for perfil in ranking %}
+    <li>{{ perfil.user.username }} — {{ perfil.pontuacao_total }} pontos</li>
+  {% endfor %}
+</ol>
+{% endblock %}
