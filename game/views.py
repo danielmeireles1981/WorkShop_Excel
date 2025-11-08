@@ -141,3 +141,79 @@ def fase3_etapa2(request):
 @login_required
 def fase3_final(request):
     return render(request, 'game/fase3_final.html')
+
+
+# Em game/views.py
+import logging
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+
+# Pega uma instância do logger
+logger = logging.getLogger(__name__)
+
+@login_required
+@require_POST  # Garante que esta view só aceite requisições POST
+def submit_etapa_view(request):
+    # Onde o usuário será redirecionado em caso de sucesso ou erro
+    redirect_url = request.META.get('HTTP_REFERER', 'game_home')
+
+    logger.info(f"Iniciando 'submit_etapa_view' para o usuário: {request.user.username}")
+    logger.debug(f"Dados do POST recebidos: {request.POST}")
+    logger.debug(f"Arquivos recebidos (request.FILES): {request.FILES}")
+
+    etapa_id = request.POST.get('etapa_id')
+    planilha = request.FILES.get('planilha')
+
+    if not etapa_id:
+        logger.error("Erro no envio: 'etapa_id' não foi encontrado no POST.")
+        messages.error(request, 'Erro no envio: ID da etapa não foi fornecido.')
+        return redirect(redirect_url)
+
+    if not planilha:
+        logger.error(f"Erro no envio da etapa '{etapa_id}': Nenhum arquivo ('planilha') encontrado em request.FILES.")
+        messages.error(request, 'Você esqueceu de selecionar um arquivo para enviar.')
+        return redirect(redirect_url)
+
+    logger.info(f"Arquivo '{planilha.name}' (tamanho: {planilha.size} bytes) recebido para a etapa '{etapa_id}'.")
+
+    # Salvar o upload da etapa
+    try:
+        from .models import EtapaSubmission
+        EtapaSubmission.objects.create(
+            user=request.user,
+            etapa_id=etapa_id,
+            planilha=planilha,
+        )
+        logger.info("Upload persistido em EtapaSubmission.")
+    except Exception as e:
+        logger.exception(f"Falha ao salvar EtapaSubmission: {e}")
+
+    # --- Lógica para salvar e validar o arquivo ---
+    # Aqui você adicionaria o código para salvar o arquivo,
+    # validar o conteúdo, calcular pontos, etc.
+    # Exemplo:
+    try:
+        # Exemplo de como salvar o arquivo em um modelo (se você tiver um)
+        # from .models import Submission
+        # Submission.objects.create(
+        #     user=request.user,
+        #     etapa_id=etapa_id,
+        #     file=planilha,
+        # )
+        logger.info(f"Processamento do arquivo para a etapa '{etapa_id}' iniciado...")
+        # ... sua lógica de validação ...
+        logger.info(f"Arquivo da etapa '{etapa_id}' processado com sucesso.")
+
+    except Exception as e:
+        logger.exception(f"Ocorreu uma exceção ao processar o arquivo da etapa '{etapa_id}': {e}")
+        messages.error(request, f"Houve um erro inesperado ao processar seu arquivo: {e}")
+        return redirect(redirect_url)
+    # ---------------------------------------------
+
+    messages.success(request, f'Planilha da etapa {etapa_id} enviada com sucesso!')
+    logger.info(f"Redirecionando usuário '{request.user.username}' para '{redirect_url}' com mensagem de sucesso.")
+
+    return redirect(redirect_url)
+

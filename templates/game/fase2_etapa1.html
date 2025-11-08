@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block body_class %}fase-2{% endblock %}
 {% block content %}
 <h2>💰 Fase 2 — Etapa 1: Lançamentos de Receitas e Despesas</h2>
 
@@ -98,6 +100,11 @@ Ticket Médio $  =MÉDIASE([Valor];[Tipo];"Despesa")
   <h3>💪 Mão na massa: “Base blindada + Resumo instantâneo”</h3>
   <p>Monte sua própria base e crie um resumo ao lado. Valha-se de validações para evitar erros.</p>
 
+  <div class="callout info" style="margin-top: 16px;">
+    <strong>📦 Dataset Sugerido:</strong> <a href="{% static 'datasets/fluxo_de_caixa.xls' %}" class="btn-next" download style="margin:0; padding: 6px 10px; font-size: .9rem;">Baixar base</a><br>
+    <strong>Missão:</strong> Crie KPIs do mês + resumo por categoria + status (Excelente/Ok/Atenção) com regras visuais.
+  </div>
+
   <div class="grid-2">
     <div>
       <h4>📌 Requisitos da base</h4>
@@ -134,6 +141,17 @@ Ticket Médio $  =MÉDIASE([Valor];[Tipo];"Despesa")
     <span class="badge">🏅 Base Limpa</span>
     <span class="badge">🛡️ Validação Pro</span>
     <span class="badge">⚡ Resumo Instantâneo</span>
+  </div>
+
+  <div class="callout success" style="margin-top: 20px;">
+    <h4>📤 Envie seu trabalho</h4>
+    <form method="post" action="{% url 'submit_etapa' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="etapa_id" value="f2e1">
+      <label for="planilha_f2e1">Selecione sua planilha:</label>
+      <input type="file" name="planilha" id="planilha_f2e1" required>
+      <button type="submit" class="btn-submit">Submeter Planilha</button>
+    </form>
   </div>
 </section>
 

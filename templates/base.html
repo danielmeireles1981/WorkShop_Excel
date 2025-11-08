@@ -6,7 +6,7 @@
     <title>O Jogo da Vida: Edição Excel</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
 <header>
     <div class="header-top">
         <h1>💼 O Jogo da Vida: Edição Excel</h1>
@@ -31,11 +31,22 @@
 </header>
 
 <main>
+    <div class="hud">
+        <div class="timer" data-js="timer" aria-live="polite" title="Tempo nesta etapa">00:00</div>
+    </div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     {% block content %}{% endblock %}
 </main>
 
 <footer>
     <p>© 2025 - Workshop Interativo “O Jogo da Vida: Edição Excel”</p>
 </footer>
+<script src="{% static 'js/main.js' %}" defer></script>
 </body>
 </html>

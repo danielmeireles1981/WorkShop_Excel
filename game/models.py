@@ -32,4 +32,17 @@ class Score(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     points_total = models.IntegerField(default=0)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
+from django.db import models
+from django.contrib.auth.models import User
+
+def user_directory_path(instance, filename):
+    # O arquivo será salvo em: media/user_<id>/<etapa_id>_<filename>
+    return f'user_{instance.user.id}/{instance.etapa_id}_{filename}'
+
+class EtapaSubmission(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    etapa_id = models.CharField(max_length=10)
+    planilha = models.FileField(upload_to=user_directory_path)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+

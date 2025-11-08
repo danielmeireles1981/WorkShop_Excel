@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block body_class %}fase-1{% endblock %}
 {% block content %}
+<div data-js="progress" data-step="1" data-total="4">
+  <div class="progress"><div class="progress__bar"></div></div>
+  <div class="progress__label"></div>
+</div>
 <h2>🪙 Etapa 1 — O Vale das Operações (SOMA, SUBTRAÇÃO, MÉDIA, MÁXIMO, MÍNIMO)</h2>
 
 <!-- ✨ Abertura: gancho emocional e contexto -->
@@ -14,7 +20,7 @@
     <div>
       <h4>🧭 Objetivo da etapa</h4>
       <ul class="check">
-        <li>Aplicar <strong>=SOMA</strong>, <strong>subtração</strong>, <strong>=MÉDIA</strong>, <strong>=MÁXIMO</strong> e <strong>=MÍNIMO</strong> com confiança.</li>
+        <li>Aplicar: <br>=SOMA, <br>=SUBTRAÇÃO <br>=MÉDIA <br>=MÁXIMO <br>=MÍNIMO</li>
         <li>Formatar números como dinheiro e destacar resultados automaticamente.</li>
         <li>Construir um mini-painel do mês em menos de 15 minutos.</li>
       </ul>
@@ -22,14 +28,42 @@
     <div>
       <h4>⌨️ Atalhos ninja (Windows)</h4>
       <ul class="tips">
-        <li><code>Alt +=</code> → AutoSoma (insere <code>=SOMA(...)</code>)</li>
-        <li><code>Ctrl + Shift + $</code> → Moeda</li>
-        <li><code>Ctrl + ;</code> → Inserir data</li>
-        <li><code>Ctrl + C</code> / <code>Ctrl + V</code> → Copiar/colar fórmulas</li>
+        <li><kbd>Alt</kbd> + <kbd>=</kbd> → AutoSoma (insere <code>=SOMA(...)</code>)</li>
+        <li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>$</kbd> → Moeda</li>
+        <li><kbd>Ctrl</kbd> + <kbd>;</kbd> → Inserir data</li>
+        <li><kbd>Ctrl</kbd> + <kbd>C</kbd> / <kbd>Ctrl</kbd> + <kbd>V</kbd> → Copiar/colar fórmulas</li>
       </ul>
     </div>
   </div>
-</section>
+ </section>
+
+<div class="bloco desafio callout warning" >
+  <h3>⚡ Checagem Rápida</h3>
+  <div class="grid-2">
+    <!-- Pergunta 1 -->
+    <form data-js="quiz" data-correct="SOMA" onsubmit="return false;">
+      <fieldset>
+        <legend>Qual fórmula <strong>soma</strong> o intervalo <code>B2:B7</code>?</legend>
+        <div style="margin-top:8px;">
+          <label><input type="radio" name="q1" value="SOMA"> =SOMA(B2:B7)</label><br>
+          <label><input type="radio" name="q1" value="MEDIA"> =MÉDIA(B2:B7)</label>
+        </div>
+        <div data-js="feedback"></div>
+      </fieldset>
+    </form>
+    <!-- Pergunta 2 -->
+    <form data-js="quiz" data-correct="MAXIMO" onsubmit="return false;">
+      <fieldset>
+        <legend>Qual fórmula acha o <strong>maior valor</strong> no intervalo?</legend>
+        <div style="margin-top:8px;">
+          <label><input type="radio" name="q2" value="MINIMO"> =MÍNIMO(B2:B7)</label><br>
+          <label><input type="radio" name="q2" value="MAXIMO"> =MÁXIMO(B2:B7)</label>
+        </div>
+        <div data-js="feedback"></div>
+      </fieldset>
+    </form>
+  </div>
+</div>
 
 <!-- 📘 Teoria resumida e visual -->
 <section class="bloco teoria">
@@ -73,18 +107,20 @@
     <div>
       <h4>🔢 Fórmulas principais</h4>
       <pre><code>
-Total .......... =SOMA(B2:B5)
-Média .......... =MÉDIA(B2:B5)
-Maior valor .... =MÁXIMO(B2:B5)
+Total .......... =SOMA(B2:B5)<br>
+Subtração ...... =B2-B3<br>
+Média .......... =MÉDIA(B2:B5)<br>
+Maior valor .... =MÁXIMO(B2:B5)<br>
 Menor valor .... =MÍNIMO(B2:B5)
       </code></pre>
     </div>
     <div class="callout success">
       <strong>Polimento em 30s:</strong>
       <ul>
-        <li>Selecione valores → <code>Ctrl + Shift + $</code> (moeda)</li>
-        <li>Negrito no Total (Ctrl + B)</li>
-        <li>AutoSoma no Total: <code>Alt +=</code></li>
+        
+        <li>Selecione valores <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>$</kbd></li>
+        <li>Negrito no Total <kbd>Ctrl</kbd> + <kbd>B</kbd></li>
+        <li>AutoSoma no Total: <kbd>Alt +=</kbd></li>
       </ul>
     </div>
   </div>
@@ -94,6 +130,11 @@ Menor valor .... =MÍNIMO(B2:B5)
 <section class="bloco desafio">
   <h3>💪 Mão na massa: Mini Painel “Mês 1”</h3>
   <p>Crie duas tabelas: <strong>Receitas</strong> e <strong>Despesas</strong>. Depois, monte um resumo com 5 indicadores.</p>
+
+  <div class="callout info" style="margin-top: 16px;">
+    <strong>📦 Dataset Sugerido:</strong> <a href="{% static 'datasets/despesas_de_casa.xls' %}" class="btn-next" download style="margin:0; padding: 6px 10px; font-size: .9rem;">Baixar base</a><br>
+    <strong>Missão:</strong> Monte o painel ‘Mês 1’ com total, média, maior/menor e saldo. Bônus: semáforo no saldo.
+  </div>
 
   <div class="grid-2">
     <div>
@@ -133,6 +174,17 @@ Menor Despesa .... =MÍNIMO(intervalo_despesas)
     <span class="badge">🏅 AutoSoma Pro</span>
     <span class="badge">💎 Painel Limpo</span>
     <span class="badge">⚡ Atalhos Ninja</span>
+  </div>
+
+  <div class="callout success" style="margin-top: 20px;">
+    <h4>📤 Envie seu trabalho</h4>
+    <form method="post" action="{% url 'submit_etapa' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="etapa_id" value="f1e1">
+      <label for="planilha_f1e1">Selecione sua planilha:</label>
+      <input type="file" name="planilha" id="planilha_f1e1" required>
+      <button type="submit" class="btn-submit">Submeter Planilha</button>
+    </form>
   </div>
 </section>
 

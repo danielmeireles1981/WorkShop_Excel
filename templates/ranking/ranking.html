@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>Ranking dos Participantes</h2>
-<ol>
+<ol data-js="ranking" data-username="{{ user.username }}">
   {% for perfil in ranking %}
     <li>{{ perfil.user.username }} — {{ perfil.pontuacao_total }} pontos</li>
   {% endfor %}

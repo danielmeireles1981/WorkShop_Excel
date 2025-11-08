@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block body_class %}fase-3{% endblock %}
 {% load static %}
 {% block content %}
 <h2>🎤 Fase 3 — Etapa 1: Apresentação do Dashboard + Ranking</h2>
@@ -57,6 +58,11 @@
 <section class="bloco desafio">
   <h3>💪 Mão na massa: apresente e registre</h3>
   <div class="grid-2">
+    <div class="callout info" style="grid-column: 1 / -1; margin-bottom: 16px;">
+      <strong>📦 Dataset Sugerido:</strong> <a href="{% static 'datasets/planilha15_noturno.xls' %}" class="btn-next" download style="margin:0; padding: 6px 10px; font-size: .9rem;">Baixar base</a><br>
+      <strong>Missão:</strong> Use este arquivo-coringa (ou um de sua escolha) para consolidar tudo que aprendeu e fazer seu pitch de 5 minutos valendo o ranking.
+    </div>
+
     <div>
       <h4>📦 Entrega mínima</h4>
       <ul class="plain">

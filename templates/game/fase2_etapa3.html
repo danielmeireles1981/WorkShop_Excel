@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block body_class %}fase-2{% endblock %}
 {% block content %}
 <h2>📈 Fase 2 — Etapa 3: Gráficos & Indicadores Visuais</h2>
 
@@ -96,6 +98,12 @@
   <h3>💪 Mão na massa: “Mini-Dashboard Visual”</h3>
   <p>Crie um painel com 4 blocos, todos respondendo ao <strong>Mês Selecionado</strong> (H1):</p>
 
+  <div class="callout info" style="margin-top: 16px;">
+    <strong>📦 Dataset Sugerido:</strong> <a href="{% static 'datasets/hotelaria.xlsx' %}" class="btn-next" download style="margin:0; padding: 6px 10px; font-size: .9rem;">Baixar base</a><br>
+    <strong>Missão:</strong> Crie um Dashboard com ocupação (linha), receita por tipo (colunas) e participação (rosca).
+    <small>(Alternativa: use <code>boletos_em_atraso.xlsx</code> para um gráfico de idades de saldo).</small>
+  </div>
+
   <div class="grid-2">
     <div>
       <h4>📌 Blocos obrigatórios</h4>
@@ -127,6 +135,17 @@
     <span class="badge">🏅 Storytelling Visual</span>
     <span class="badge">📊 Gráfico Adequado</span>
     <span class="badge">🚦 Semáforo Claro</span>
+  </div>
+
+  <div class="callout success" style="margin-top: 20px;">
+    <h4>📤 Envie seu trabalho</h4>
+    <form method="post" action="{% url 'submit_etapa' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="etapa_id" value="f2e3">
+      <label for="planilha_f2e3">Selecione sua planilha:</label>
+      <input type="file" name="planilha" id="planilha_f2e3" required>
+      <button type="submit" class="btn-submit">Submeter Planilha</button>
+    </form>
   </div>
 </section>
 

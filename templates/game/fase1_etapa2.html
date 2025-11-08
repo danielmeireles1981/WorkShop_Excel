@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block body_class %}fase-1{% endblock %}
 {% block content %}
 <h2>🔥 Etapa 2 — Montanha das Condições (SE, E, OU)</h2>
 
@@ -97,6 +99,11 @@
   <h3>💪 Mão na massa: “Radar Financeiro”</h3>
   <p>Monte um radar de status do mês com 3 indicadores inteligentes.</p>
 
+  <div class="callout info" style="margin-top: 16px;">
+    <strong>📦 Dataset Sugerido:</strong> <a href="{% static 'datasets/descontos.xls' %}" class="btn-next" download style="margin:0; padding: 6px 10px; font-size: .9rem;">Baixar base</a><br>
+    <strong>Missão:</strong> Implemente regras de desconto progressivo com SE/E/OU e sinalize o desconto aplicado.
+  </div>
+
   <div class="grid-2">
     <div>
       <h4>📌 Indicador 1 — Status do Saldo</h4>
@@ -131,6 +138,17 @@
     <span class="badge">🏅 Lógica Clara</span>
     <span class="badge">🚦 Semáforo Pro</span>
     <span class="badge">🧩 Combinações E/OU</span>
+  </div>
+
+  <div class="callout success" style="margin-top: 20px;">
+    <h4>📤 Envie seu trabalho</h4>
+    <form method="post" action="{% url 'submit_etapa' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="etapa_id" value="f1e2">
+      <label for="planilha_f1e2">Selecione sua planilha:</label>
+      <input type="file" name="planilha" id="planilha_f1e2" required>
+      <button type="submit" class="btn-submit">Submeter Planilha</button>
+    </form>
   </div>
 </section>
 

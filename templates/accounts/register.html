@@ -2,38 +2,54 @@
 {% block content %}
 <h2>🧾 Cadastro no Jogo</h2>
 
-<form method="post">
+<form method="post" class="form-register">
     {% csrf_token %}
-    <label>Usuário:</label>
-    <input type="text" name="username" required>
+    <div class="form-grid">
+        <div>
+            <label for="id_username">Usuário:</label>
+            <input type="text" name="username" id="id_username" required placeholder="Seu nome de jogador">
+        </div>
+        <div>
+            <label for="id_email">Email:</label>
+            <input type="email" name="email" id="id_email" required placeholder="seu@email.com">
+        </div>
+        <div>
+            <label for="id_password">Senha:</label>
+            <input type="password" name="password" id="id_password" required>
+        </div>
+        <div>
+            <label for="id_data_nascimento">Data de Nascimento:</label>
+            <input type="date" name="data_nascimento" id="id_data_nascimento" required>
+        </div>
+        <div>
+            <label for="id_avatar">Escolha seu Avatar:</label>
+            <select name="avatar" id="id_avatar" required>
+                <option value="🙂">🙂 Aventureiro</option>
+                <option value="🧙">🧙 Mestre das Planilhas</option>
+                <option value="�‍💻">🧑‍💻 Analista Financeiro</option>
+                <option value="🦸">🦸 Heroína dos Cálculos</option>
+                <option value="🐉">🐉 Guardião dos Dados</option>
+                <option value="👩‍🚀">👩‍🚀 Explorador(a) do Excel</option>
+                <option value="🕵️">🕵️ Detetive de Dados</option>
+                <option value="🤖">🤖 Robô Analista</option>
+                <option value="🦉">🦉 Coruja Sábia</option>
+                <option value="🦊">🦊 Raposa Estrategista</option>
+            </select>
+        </div>
+        <div>
+            <label for="id_personagem">Personagem:</label>
+            <select name="personagem" id="id_personagem" required>
+                <option value="universitario">Estudante Universitário</option>
+                <option value="empreendedor">Jovem Empreendedor(a)</option>
+                <option value="aprendiz">Aprendiz Financeiro</option>
+                <option value="analista_bi">Analista de BI</option>
+                <option value="controller">Controller em Treinamento</option>
+                <option value="cientista_dados">Cientista de Dados Jr.</option>
+            </select>
+        </div>
+    </div>
 
-    <label>Senha:</label>
-    <input type="password" name="password" required>
-
-    <label>Email:</label>
-    <input type="email" name="email" required>
-
-    <label>Data de Nascimento:</label>
-    <input type="date" name="data_nascimento" required>
-
-    <label>Escolha seu Avatar:</label>
-    <select name="avatar" required>
-        <option value="🙂">🙂 Aventureiro</option>
-        <option value="🧙‍♂️">🧙‍♂️ Mestre das Planilhas</option>
-        <option value="🧑‍💻">🧑‍💻 Analista Financeiro</option>
-        <option value="🦸‍♀️">🦸‍♀️ Heroína dos Cálculos</option>
-        <option value="🐉">🐉 Guardião dos Dados</option>
-        <option value="👩‍🚀">👩‍🚀 Exploradora do Excel</option>
-    </select>
-
-    <label>Personagem:</label>
-    <select name="personagem" required>
-        <option value="universitario">Estudante Universitário</option>
-        <option value="empreendedor">Empreendedor Júnior</option>
-        <option value="aprendiz">Aprendiz Financeiro</option>
-    </select>
-
-    <button type="submit">Cadastrar-se</button>
+    <button type="submit" class="btn-submit">Cadastrar-se</button>
 </form>
 
 {% endblock %}

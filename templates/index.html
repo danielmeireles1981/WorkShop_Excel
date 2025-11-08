@@ -1,6 +1,65 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Bem-vindo ao Jogo da Vida!</h2>
-<p>Aprenda Excel e finanças de forma divertida e interativa.</p>
-<a href="/accounts/register/">Cadastre-se</a> ou <a href="/accounts/login/">faça login</a>.
+
+<section class="bloco destaque" style="text-align:center;">
+  <h2>Domine Excel jogando</h2>
+  <p style="margin:10px 0 16px;">
+    Avance por fases curtas, destrave habilidades e suba no ranking — prática guiada, dicas rápidas e desafios com feedback.
+  </p>
+  <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+    <a href="{% url 'game_home' %}" class="btn-start">Começar agora</a>
+    <a href="{% url 'ranking' %}" class="btn-start" style="background: var(--color-yellow); color:#333;">Ver ranking</a>
+  </div>
+  <p class="hint" style="margin-top:10px;">Dica: pressione H para ocultar/exibir dicas das etapas.</p>
+</section>
+
+<section>
+  <h2 style="text-align:center; margin-bottom:12px;">Atalhos das Fases</h2>
+  <div class="fase-container">
+    <div class="fase-card">
+      <h3>Fase 1 — Fundamentos do Excel</h3>
+      <p>Funções essenciais (SOMA, SE, PROCV) e lógica base.</p>
+      <ul>
+        <li>Etapa 1 — Operações e resumos</li>
+        <li>Etapa 2 — SE, E, OU</li>
+        <li>Etapa 3 — SOMASE(S), CONT.SE</li>
+        <li>Etapa 4 — PROCV/ÍNDICE+CORRESP</li>
+      </ul>
+      <a href="{% url 'etapa1' %}" class="btn-start">Iniciar Fase 1</a>
+    </div>
+
+    <div class="fase-card">
+      <h3>Fase 2 — Finanças Pessoais</h3>
+      <p>Lançamentos, KPIs e resumos automáticos por mês/categoria.</p>
+      <ul>
+        <li>Etapa 1 — Lançamentos</li>
+        <li>Etapa 2 — KPIs e resumos</li>
+        <li>Etapa 3 — Gráficos e indicadores</li>
+        <li>Final — Missão Equilíbrio</li>
+      </ul>
+      <a href="{% url 'fase2_etapa1' %}" class="btn-start">Iniciar Fase 2</a>
+    </div>
+
+    <div class="fase-card">
+      <h3>Fase 3 — Dashboard & Apresentação</h3>
+      <p>Monte seu painel final e compartilhe — valendo ranking.</p>
+      <ul>
+        <li>Etapa 1 — Montagem do Dashboard</li>
+        <li>Etapas seguintes — Interpretação e entrega</li>
+      </ul>
+      <a href="{% url 'fase3_etapa1' %}" class="btn-start">Iniciar Fase 3</a>
+    </div>
+  </div>
+</section>
+
+{% if not user.is_authenticated %}
+<section class="bloco" style="text-align:center;">
+  <p>Crie sua conta para pontuar e aparecer no ranking.</p>
+  <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+    <a href="/accounts/register/" class="btn-start">Cadastrar</a>
+    <a href="/accounts/login/" class="btn-start" style="background: var(--color-primary-600);">Entrar</a>
+  </div>
+</section>
+{% endif %}
+
 {% endblock %}

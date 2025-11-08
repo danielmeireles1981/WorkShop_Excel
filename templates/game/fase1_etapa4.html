@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block body_class %}fase-1{% endblock %}
 {% block content %}
 <h2>🏰 Etapa 4 — Castelo das Buscas (PROCV, PROCH, CORRESP + ÍNDICE)</h2>
 
@@ -95,6 +97,11 @@
   <h3>💪 Mão na massa: “Sistema de Consulta Rápida”</h3>
   <p>Crie uma área de consulta onde o usuário digita um <strong>código</strong> e recebe automaticamente:</p>
 
+  <div class="callout info" style="margin-top: 16px;">
+    <strong>📦 Dataset Sugerido:</strong> <a href="{% static 'datasets/concessionaria.xlsx' %}" class="btn-next" download style="margin:0; padding: 6px 10px; font-size: .9rem;">Baixar base</a><br>
+    <strong>Missão:</strong> Construa uma consulta por código (nome, ano, preço) com PROCV e depois com ÍNDICE+CORRESP.
+  </div>
+
   <div class="grid-2">
     <div>
       <h4>📌 Saídas obrigatórias</h4>
@@ -123,6 +130,17 @@
     <span class="badge">🏅 Mestre do PROCV</span>
     <span class="badge">🧩 CORRESP + ÍNDICE</span>
     <span class="badge">🛡️ Base Robusta</span>
+  </div>
+
+  <div class="callout success" style="margin-top: 20px;">
+    <h4>📤 Envie seu trabalho</h4>
+    <form method="post" action="{% url 'submit_etapa' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="etapa_id" value="f1e4">
+      <label for="planilha_f1e4">Selecione sua planilha:</label>
+      <input type="file" name="planilha" id="planilha_f1e4" required>
+      <button type="submit" class="btn-submit">Submeter Planilha</button>
+    </form>
   </div>
 </section>
 

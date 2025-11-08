@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block body_class %}fase-2{% endblock %}
 {% block content %}
 <h2>📊 Fase 2 — Etapa 2: Resumos Automáticos (KPIs com SOMASES, MÉDIASE, CONT.SE)</h2>
 
@@ -99,6 +101,12 @@
   <h3>💪 Mão na massa: “Painel Express do Mês”</h3>
   <p>Construa um <strong>painel de KPIs</strong> com filtros por Mês e (opcional) Categoria.</p>
 
+  <div class="callout info" style="margin-top: 16px;">
+    <strong>📦 Dataset Sugerido:</strong> <a href="{% static 'datasets/fluxo_de_caixa.xls' %}" class="btn-next" download style="margin:0; padding: 6px 10px; font-size: .9rem;">Baixar base</a><br>
+    <strong>Missão:</strong> Crie KPIs do mês + resumo por categoria + status (Excelente/Ok/Atenção) com regras visuais.
+    <small>(Opcional: use o <code>controle_de_estoque.xlsx</code> para KPIs de estoque)</small>
+  </div>
+
   <div class="grid-2">
     <div>
       <h4>📌 KPIs obrigatórios</h4>
@@ -133,6 +141,17 @@
     <span class="badge">🏅 KPIs Claros</span>
     <span class="badge">⚡ SOMASES Pro</span>
     <span class="badge">🚦 Alertas Visuais</span>
+  </div>
+
+  <div class="callout success" style="margin-top: 20px;">
+    <h4>📤 Envie seu trabalho</h4>
+    <form method="post" action="{% url 'submit_etapa' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="etapa_id" value="f2e2">
+      <label for="planilha_f2e2">Selecione sua planilha:</label>
+      <input type="file" name="planilha" id="planilha_f2e2" required>
+      <button type="submit" class="btn-submit">Submeter Planilha</button>
+    </form>
   </div>
 </section>
 

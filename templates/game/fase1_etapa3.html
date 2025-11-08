@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block body_class %}fase-1{% endblock %}
 {% block content %}
 <h2>🌊 Etapa 3 — Mar da Lógica (SOMASE, SOMASES, MÉDIASE, CONT.SE + SE/E/OU)</h2>
 
@@ -103,6 +105,11 @@
   <h3>💪 Mão na massa: “Painel de Categorias Inteligentes”</h3>
   <p>Monte um painel com 5 indicadores e 2 alertas automáticos.</p>
 
+  <div class="callout info" style="margin-top: 16px;">
+    <strong>📦 Dataset Sugerido:</strong> <a href="{% static 'datasets/controle_de_estoque.xlsx' %}" class="btn-next" download style="margin:0; padding: 6px 10px; font-size: .9rem;">Baixar base</a><br>
+    <strong>Missão:</strong> Crie KPIs: itens abaixo do mínimo, total por categoria, média por fornecedor; pinte o risco.
+  </div>
+
   <div class="grid-2">
     <div>
       <h4>📌 Indicadores</h4>
@@ -135,6 +142,17 @@
     <span class="badge">🏅 SOMASE Master</span>
     <span class="badge">📊 Média por Critério</span>
     <span class="badge">🚦 Alertas Lógicos</span>
+  </div>
+
+  <div class="callout success" style="margin-top: 20px;">
+    <h4>📤 Envie seu trabalho</h4>
+    <form method="post" action="{% url 'submit_etapa' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="etapa_id" value="f1e3">
+      <label for="planilha_f1e3">Selecione sua planilha:</label>
+      <input type="file" name="planilha" id="planilha_f1e3" required>
+      <button type="submit" class="btn-submit">Submeter Planilha</button>
+    </form>
   </div>
 </section>
 

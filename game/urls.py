@@ -22,4 +22,6 @@ urlpatterns = [
     # Fase 3
     path('fase3/etapa1/', views.fase3_etapa1, name='fase3_etapa1'),
     path('fase3/submit/', views.fase3_submit, name='fase3_submit'),
+    
+    path('submit_etapa/', views.submit_etapa_view, name='submit_etapa'),
 ]
